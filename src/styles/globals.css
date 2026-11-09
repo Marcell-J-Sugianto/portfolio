@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+/* Anchor navigation should glide between the portfolio sections. */
+html {
+  scroll-behavior: smooth;
+}
+
+:root {
+  /* Shared color and typography tokens used across the portfolio. */
+  --primary: #273E35;
+  --secondary: #96DA92;
+  --background-1: #EFF5F3;
+  --background-2: #CDD6D2;
+  --text-1: #0A100D;
+  --text-2: #EFF5F3;
+  --text-green: #96DA92;
+  --shadow-light: #EFF5F380;
+  --shadow-dark: #0A100D80;
+  --shadow-accent: #96DA9280;
+
+  /* FONT SIZES */
+  --text-xl: 48px;
+  --text-lg: 36px;
+  --text-md: 20px;
+  --text-sm: 16px;
+  --text-xs: 14px;
+
+  font-family: "Fira Sans", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* COLORS (DARK) */
+    --primary: #273E35;
+    --secondary: #96DA92;
+    --background-1: #EFF5F3;
+    --background-2: #CDD6D2;
+    --text-main: #0A100D;
+    --text-white: #EFF5F3;
+    --text-green: #96DA92;
+  }
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 58px;
+  font-weight: 600;
+  padding: 20px 0;
+}
+
+h2 {
+  font-size: 36px;
+  line-height: 43px;
+  font-weight: 600;
+  padding: 0 0 20px 0;
+}
+
+p {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 400;
+  padding: 0;
+}
+
+/* Greeting animation. */
+@keyframes bobbing {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Decelerate as it rises */
+  }
+  50% {
+    transform: translateY(-15px); /* Peak height of the jump */
+    animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53); /* Accelerate as it falls */
+  }
+}
+
+.bob-element {
+  display: inline-block; /* Required if applying to inline text or icons */
+  animation: bobbing 0.6s ease-in-out infinite;
+}
+
+/* The duplicated logo track moves by half its width for a seamless loop. */
+@keyframes logo-slider {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-logo-slider {
+  animation: logo-slider 30s linear infinite;
+  will-change: transform;
+}
+
+.logo-slider-container:hover .animate-logo-slider {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-logo-slider {
+    animation-play-state: paused;
+  }
+}
+
