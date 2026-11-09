@@ -1,4 +1,6 @@
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import ViewportTooltip from "@/components/ViewportTooltip";
 
 interface IconButtonProps {
   href: string;
@@ -7,12 +9,18 @@ interface IconButtonProps {
 }
 
 const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
+    const [hovered, setHovered] = useState(false);
+    const [keyboardFocused, setKeyboardFocused] = useState(false);
+
     const redirect = () => {
+        setHovered(false);
+        setKeyboardFocused(false);
         window.open(href, "_blank", "noopener,noreferrer");
     };
 
     return (
-        <span className="group/icon-button relative inline-flex">
+        <span className="relative inline-flex">
             <button
             className={cn(
                 "h-[30px] w-[30px] cursor-pointer rounded-full bg-(--secondary)",
@@ -20,10 +28,15 @@ const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
             )}
             type="button"
             aria-label={label}
+            ref={buttonRef}
+            onPointerEnter={() => setHovered(true)}
+            onPointerLeave={() => setHovered(false)}
+            onFocus={(event) => setKeyboardFocused(event.currentTarget.matches(":focus-visible"))}
+            onBlur={() => setKeyboardFocused(false)}
             onClick={redirect}>
                 <span
                 aria-hidden="true"
-                className="block h-full w-full bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px]"
+                className="block h-full w-full transform-gpu backface-hidden bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px]"
                 style={{
                     maskImage: `url(${maskSrc.src})`,
                     maskSize: "70%",
@@ -38,21 +51,11 @@ const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
                 }} />
             </button>
 
-            {/* Also reveal the tooltip on keyboard focus so it works without a mouse. */}
-            <span
-                role="tooltip"
-                className={cn(
-                    "pointer-events-none absolute bottom-full left-1/2 z-50 mb-[8px]",
-                    "-translate-x-1/2 translate-y-[4px] whitespace-nowrap rounded-[6px]",
-                    "bg-(--text-1) px-[10px] py-[6px] text-[14px] leading-[17px] text-(--text-2)",
-                    "shadow-[2px_2px_8px_2px_var(--shadow-dark)] opacity-0",
-                    "transition-all duration-200 ease-out",
-                    "group-hover/icon-button:translate-y-0 group-hover/icon-button:opacity-100",
-                    "group-focus-within/icon-button:translate-y-0 group-focus-within/icon-button:opacity-100"
-                )}
-            >
-                {label}
-            </span>
+            <ViewportTooltip
+                anchorRef={buttonRef}
+                label={label}
+                visible={hovered || keyboardFocused}
+            />
         </span>
     );
 };

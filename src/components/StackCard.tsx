@@ -11,7 +11,7 @@ const StackCard = ({ title, stack }: StackCardProps) => {
             "p-[25px]",
             "bg-(--background-1)",
             "rounded-[10px]",
-            "shadow-[-4px_-4px_16px_8px_#EFF5F380,_4px_4px_16px_8px_#0A100D80]"
+            "shadow-[-4px_-4px_16px_8px_var(--shadow-light),_4px_4px_16px_8px_var(--shadow-dark)]"
         )}>
             <h2 style={{ fontSize: "24px", lineHeight: "29px", padding: "0 0 5px 0" }}>
                 {title}

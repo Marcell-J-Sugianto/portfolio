@@ -14,7 +14,7 @@ const ExperienceCard = ({ title, year, subtitle, place, tags }: ExperienceCardPr
             "p-[25px]",
             "bg-(--background-1)",
             "rounded-[10px]",
-            "shadow-[-4px_-4px_16px_8px_#EFF5F380,_4px_4px_16px_8px_#0A100D80]"
+            "shadow-[-4px_-4px_16px_8px_var(--shadow-light),_4px_4px_16px_8px_var(--shadow-dark)]"
         )}>
             <div className="flex">
                 <div className={cn("flex-1")}>
@@ -26,7 +26,7 @@ const ExperienceCard = ({ title, year, subtitle, place, tags }: ExperienceCardPr
                         fontSize: "20px",
                         lineHeight: "24px",
                         borderRadius: "5px",
-                        color: "var(--secondary)"
+                        color: "var(--text-green)"
                     }}>
                         { title }
                     </h2>
@@ -39,23 +39,19 @@ const ExperienceCard = ({ title, year, subtitle, place, tags }: ExperienceCardPr
                         </div>
                     </div>
 
-                    <div className={cn(
-                        "flex gap-[10px]"
-                    )}>
-                        {tags.map(t => 
-                            <div
-                            key={t}
-                            className={cn(
-                                "px-[7px] py-[4px]",
-                                "bg-(--background-1)",
-                                "rounded-[5px]",
-                                "shadow-[-4px_-4px_16px_4px_#EFF5F380,_4px_4px_16px_4px_#0A100D80]"
-                            )}>
-                                <span className="size-[14px] leading-[17px]">
-                                    {t}
+                    <div className="relative isolate flex gap-[10px]">
+                        {tags.map((tag) => (
+                            <div key={tag} className="relative">
+                                {/* Keep every tag shadow below all tag faces in this row. */}
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute inset-0 z-0 rounded-[5px] shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]"
+                                />
+                                <span className="relative z-10 inline-block rounded-[5px] bg-(--background-1) px-[7px] py-[4px]">
+                                    <span className="size-[14px] leading-[17px]">{tag}</span>
                                 </span>
                             </div>
-                        )}
+                        ))}
                     </div>
                 </div>
                 <div>

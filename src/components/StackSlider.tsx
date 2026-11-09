@@ -1,9 +1,9 @@
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface StackSliderProps {
+  stacks: string[];
   className?: string;
   speed?: number;
   logoHeight?: number;
@@ -12,32 +12,13 @@ interface StackSliderProps {
 }
 
 const StackSlider = ({
+  stacks,
   className,
   speed = 30,
   logoHeight = 48,
   gap = 64,
   reverse = false,
 }: StackSliderProps) => {
-  const [stacks, setStacks] = useState<string[]>([]);
-
-  useEffect(() => {
-    const controller = new AbortController();
-
-    fetch("/api/stack", { signal: controller.signal })
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to load stack");
-        return res.json();
-      })
-      .then((data: string[]) => setStacks(data))
-      .catch((error) => {
-        if (error.name !== "AbortError") {
-          console.error("Could not load stacks:", error);
-        }
-      });
-
-    return () => controller.abort();
-  }, []);
-
   if (!stacks.length) return null;
 
   return (

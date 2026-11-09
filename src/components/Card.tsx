@@ -28,7 +28,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                     "w-full h-full",
                     "transform-3d",
                     "duration-[500ms]",
-                    "shadow-[4px_4px_16px_4px_#0a100d80]",
+                    "shadow-[4px_4px_16px_4px_var(--shadow-dark)]",
                     "rounded-[8px]",
                     {"rotate-y-180": flipped}
                 )}>
@@ -42,7 +42,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                         "overflow-hidden",
 
                         "bg-(--primary)",
-                        "text-(--secondary)",
+                        "text-(--text-green)",
 
                         "group/card-front"
                     )}>
@@ -55,7 +55,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                 "leading-[43px]",
                                 "duration-[200ms] ease-out",
 
-                                "group-hover/card-front:text-shadow-[0_0_5px_#96DA9280]"
+                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
                             )}>
                                 Marcell JS
                             </h2>
@@ -67,7 +67,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                 "leading-[19px]",
                                 "duration-[200ms] ease-out",
 
-                                "group-hover/card-front:text-shadow-[0_0_5px_#96DA9280]"
+                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
                             )}>
                                 Web Developer
                             </p>
@@ -162,7 +162,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                     <button className={cn(
                                         "bg-(--secondary)",
                                         "rounded-full",
-                                        "hover:shadow-[0_0_1px_1px_#96DA9280]",
+                                        "hover:shadow-[0_0_1px_1px_var(--shadow-accent)]",
                                         "duration-[200ms] ease-out",
                                         "cursor-pointer",
                                         "px-[15px]"

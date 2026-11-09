@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import type { Viewport } from 'next'
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -10,5 +11,9 @@ export const viewport: Viewport = {
 }
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <ThemeProvider>
+      <Component {...pageProps} />
+    </ThemeProvider>
+  );
 }
