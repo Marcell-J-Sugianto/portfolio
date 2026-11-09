@@ -28,17 +28,24 @@ html {
   font-family: "Fira Sans", sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* COLORS (DARK) */
-    --primary: #273E35;
-    --secondary: #96DA92;
-    --background-1: #EFF5F3;
-    --background-2: #CDD6D2;
-    --text-main: #0A100D;
-    --text-white: #EFF5F3;
-    --text-green: #96DA92;
-  }
+/* Theme variables live on the app wrapper, so browser color settings do not override them. */
+.theme-shell {
+  min-height: 100vh;
+  color: var(--text-1);
+  background: var(--background-1);
+}
+
+.theme-shell.dark {
+  --primary: #273E35;
+  --secondary: #96DA92;
+  --background-1: #EFF5F3;
+  --background-2: #CDD6D2;
+  --text-1: #0A100D;
+  --text-2: #EFF5F3;
+  --text-green: #96DA92;
+  --shadow-light: #EFF5F380;
+  --shadow-dark: #0A100D80;
+  --shadow-accent: #96DA9280;
 }
 
 h1 {
@@ -46,6 +53,29 @@ h1 {
   line-height: 58px;
   font-weight: 600;
   padding: 20px 0;
+}
+
+/* Fade tooltips in without tying their placement to the button's container. */
+@keyframes tooltip-appear {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.icon-button-tooltip {
+  animation: tooltip-appear 160ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icon-button-tooltip {
+    animation: none;
+  }
 }
 
 h2 {

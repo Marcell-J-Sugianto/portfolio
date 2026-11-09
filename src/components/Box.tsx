@@ -10,7 +10,7 @@ const Box = ({ children }: BoxProps) => {
             "p-[25px]",
             "bg-(--background-2)",
             "rounded-[25px]",
-            "inset-shadow-[-4px_-4px_16px_8px_#CDD6D2,_4px_4px_16px_8px_#0A100D80]"
+            "inset-shadow-[-4px_-4px_16px_8px_var(--background-2),_4px_4px_16px_8px_var(--shadow-dark)]"
         )}>
             { children }
         </div>

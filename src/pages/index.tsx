@@ -6,9 +6,35 @@ import ProjectCard from "@/components/ProjectCard";
 import Box from "@/components/Box";
 import Footer from "@/components/Footer";
 
+import fs from "node:fs";
+import path from "node:path";
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
+
 import { cn } from "@/lib/utils";
 
-export default function Home() {
+interface HomeProps {
+  stacks: string[];
+}
+
+// Collect logo paths during the build so the static site needs no runtime API.
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const logoDirectory = path.join(process.cwd(), "public", "stack");
+  const stacks = fs
+    .readdirSync(logoDirectory, { withFileTypes: true })
+    .filter(
+      (file) =>
+        file.isFile() &&
+        /\.(svg|png|jpe?g|webp|avif|gif)$/i.test(file.name)
+    )
+    .map((file) => `/stack/${file.name}`)
+    .sort();
+
+  return { props: { stacks } };
+};
+
+export default function Home({
+  stacks,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <>
       <Navbar />
@@ -45,7 +71,7 @@ export default function Home() {
           <section id="stack" className="w-full scroll-mt-[80px]">
               <h1>My Stack</h1>
 
-              <StackSection />
+              <StackSection stacks={stacks} />
           </section>
 
           <section id="experience" className="w-full scroll-mt-[80px]">

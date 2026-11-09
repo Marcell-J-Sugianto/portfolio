@@ -87,17 +87,16 @@ const ProjectCard = ({
 
                 <p className="mb-[15px]">{description}</p>
 
-                <ul className="mt-auto flex flex-wrap gap-[10px]">
+                <ul className="relative isolate mt-auto flex flex-wrap gap-[10px]">
                     {tags.map((tag) => (
-                        <li
-                            key={tag}
-                            className={cn(
-                                "list-none px-[7px] py-[4px]",
-                                "rounded-[5px] bg-(--background-1)",
-                                "shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]"
-                            )}
-                        >
-                            <span className="size-[14px] leading-[17px]">{tag}</span>
+                        <li key={tag} className="relative list-none">
+                            <span
+                                aria-hidden="true"
+                                className="absolute inset-0 z-0 rounded-[5px] shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]"
+                            />
+                            <span className="relative z-10 inline-block rounded-[5px] bg-(--background-1) px-[7px] py-[4px]">
+                                <span className="size-[14px] leading-[17px]">{tag}</span>
+                            </span>
                         </li>
                     ))}
                 </ul>

@@ -4,7 +4,11 @@ import Box from "@/components/Box";
 import StackSlider from "@/components/StackSlider";
 import StackCard from "@/components/StackCard";
 
-export default function StackSection() {
+interface StackSectionProps {
+    stacks: string[];
+}
+
+export default function StackSection({ stacks }: StackSectionProps) {
     return (
         <Box>
             <div className="w-full flex flex-col gap-[25px]">
@@ -14,9 +18,10 @@ export default function StackSection() {
                         "px-[25px]",
                         "bg-(--background-1)",
                         "rounded-[10px]",
-                        "shadow-[-4px_-4px_16px_8px_#EFF5F380,_4px_4px_16px_8px_#0A100D80]"
+                        "shadow-[-4px_-4px_16px_8px_var(--shadow-light),_4px_4px_16px_8px_var(--shadow-dark)]"
                     )}>
                     <StackSlider
+                        stacks={stacks}
                         speed={30}
                         logoHeight={40}
                         gap={30}
@@ -62,7 +67,7 @@ export default function StackSection() {
                         stack={[
                             "Figma",
                             "Claude",
-                            "ChatGPT"
+                            "ChatGPT (Codex)"
                         ]} />
                 </div>
             </div>
