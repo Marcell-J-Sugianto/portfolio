@@ -3,6 +3,7 @@
 /* Anchor navigation should glide between the portfolio sections. */
 html {
   scroll-behavior: smooth;
+  background-color: var(--primary);
 }
 
 :root {
