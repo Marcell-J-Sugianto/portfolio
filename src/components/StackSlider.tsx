@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { cn } from "@/lib/utils";
 
 interface StackSliderProps {
@@ -20,38 +21,7 @@ const StackSlider = ({
   gap = 64,
   reverse = false,
 }: StackSliderProps) => {
-  const [imagesReady, setImagesReady] = useState(false);
-
-  useEffect(() => {
-    // Start the loop only after intrinsic logo widths are known and stable.
-    const images = Array.from(document.querySelectorAll<HTMLImageElement>(
-      ".stack-slider-track img"
-    ));
-
-    if (images.every((image) => image.complete)) {
-      setImagesReady(true);
-      return;
-    }
-
-    let remaining = images.filter((image) => !image.complete).length;
-    const markImageReady = () => {
-      remaining -= 1;
-      if (remaining === 0) setImagesReady(true);
-    };
-
-    images.filter((image) => !image.complete).forEach((image) => {
-      image.addEventListener("load", markImageReady, { once: true });
-      image.addEventListener("error", markImageReady, { once: true });
-    });
-
-    return () => {
-      images.forEach((image) => {
-        image.removeEventListener("load", markImageReady);
-        image.removeEventListener("error", markImageReady);
-      });
-    };
-  }, [stacks]);
-
+  const { basePath } = useRouter();
   if (!stacks.length) return null;
 
   return (
@@ -87,7 +57,8 @@ const StackSlider = ({
                 style={{ height: logoHeight }}
               >
                 <Image
-                  src={stack}
+                  // Public image paths need the configured prefix applied explicitly.
+                  src={`${basePath}${stack}`}
                   alt={
                     copy === 0
                       ? stack.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "Logo"
