@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +20,38 @@ const StackSlider = ({
   gap = 64,
   reverse = false,
 }: StackSliderProps) => {
+  const [imagesReady, setImagesReady] = useState(false);
+
+  useEffect(() => {
+    // Start the loop only after intrinsic logo widths are known and stable.
+    const images = Array.from(document.querySelectorAll<HTMLImageElement>(
+      ".stack-slider-track img"
+    ));
+
+    if (images.every((image) => image.complete)) {
+      setImagesReady(true);
+      return;
+    }
+
+    let remaining = images.filter((image) => !image.complete).length;
+    const markImageReady = () => {
+      remaining -= 1;
+      if (remaining === 0) setImagesReady(true);
+    };
+
+    images.filter((image) => !image.complete).forEach((image) => {
+      image.addEventListener("load", markImageReady, { once: true });
+      image.addEventListener("error", markImageReady, { once: true });
+    });
+
+    return () => {
+      images.forEach((image) => {
+        image.removeEventListener("load", markImageReady);
+        image.removeEventListener("error", markImageReady);
+      });
+    };
+  }, [stacks]);
+
   if (!stacks.length) return null;
 
   return (
@@ -33,7 +66,8 @@ const StackSlider = ({
     >
       <div
         className={cn(
-          "flex w-max animate-logo-slider",
+          "flex w-max",
+          imagesReady && "animate-logo-slider",
           reverse && "[animation-direction:reverse]"
         )}
         style={{ animationDuration: `${speed}s` }}
@@ -43,7 +77,7 @@ const StackSlider = ({
           <div
             key={copy}
             aria-hidden={copy === 1}
-            className="flex shrink-0 items-center"
+            className="stack-slider-track flex shrink-0 items-center"
             style={{ gap, paddingRight: gap }}
           >
             {stacks.map((stack) => (
@@ -61,6 +95,7 @@ const StackSlider = ({
                   }
                   width={160}
                   height={logoHeight}
+                  loading="eager"
                   className={cn(
                     "h-full w-auto max-w-[160px] object-contain",
                     "ease-in-out duration-300",
