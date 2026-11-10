@@ -1,4 +1,5 @@
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "@/lib/utils";
@@ -35,7 +36,8 @@ const StackSlider = ({
     >
       <div
         className={cn(
-          "flex w-max animate-logo-slider",
+          "flex w-max",
+          imagesReady && "animate-logo-slider",
           reverse && "[animation-direction:reverse]"
         )}
         style={{ animationDuration: `${speed}s` }}
@@ -45,7 +47,7 @@ const StackSlider = ({
           <div
             key={copy}
             aria-hidden={copy === 1}
-            className="flex shrink-0 items-center"
+            className="stack-slider-track flex shrink-0 items-center"
             style={{ gap, paddingRight: gap }}
           >
             {stacks.map((stack) => (
@@ -64,6 +66,7 @@ const StackSlider = ({
                   }
                   width={160}
                   height={logoHeight}
+                  loading="eager"
                   className={cn(
                     "h-full w-auto max-w-[160px] object-contain",
                     "ease-in-out duration-300",

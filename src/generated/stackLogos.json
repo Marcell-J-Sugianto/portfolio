@@ -1,6 +1,6 @@
 [
-  "/stack/Ansible.svg",
   "/stack/AWS.svg",
+  "/stack/Ansible.svg",
   "/stack/CSS.svg",
   "/stack/Docker.svg",
   "/stack/Express.js.svg",
@@ -10,9 +10,9 @@
   "/stack/Java.svg",
   "/stack/JavaScript.svg",
   "/stack/Next.js.svg",
-  "/stack/npm.svg",
   "/stack/Python.svg",
   "/stack/React.svg",
   "/stack/Tailwind CSS.svg",
-  "/stack/Terraform.svg"
+  "/stack/Terraform.svg",
+  "/stack/npm.svg"
 ]
