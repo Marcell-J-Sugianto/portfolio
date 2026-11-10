@@ -6,9 +6,8 @@ import ProjectCard from "@/components/ProjectCard";
 import Box from "@/components/Box";
 import Footer from "@/components/Footer";
 
-import fs from "node:fs";
-import path from "node:path";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
+import stacks from "@/generated/stackLogos.json";
 
 import { cn } from "@/lib/utils";
 
@@ -16,19 +15,8 @@ interface HomeProps {
   stacks: string[];
 }
 
-// Collect logo paths during the build so the static site needs no runtime API.
+// The build-generated manifest keeps filesystem access out of the deployed Worker.
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const logoDirectory = path.join(process.cwd(), "public", "stack");
-  const stacks = fs
-    .readdirSync(logoDirectory, { withFileTypes: true })
-    .filter(
-      (file) =>
-        file.isFile() &&
-        /\.(svg|png|jpe?g|webp|avif|gif)$/i.test(file.name)
-    )
-    .map((file) => `/stack/${file.name}`)
-    .sort();
-
   return { props: { stacks } };
 };
 
