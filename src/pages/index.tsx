@@ -6,8 +6,12 @@ import ProjectCard from "@/components/ProjectCard";
 import Box from "@/components/Box";
 import Footer from "@/components/Footer";
 
+import { useRouter } from "next/router";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import stacks from "@/generated/stackLogos.json";
+import ActionButton from "@/components/ActionButton";
+import IconCv from "@/../public/cv.svg";
+import IconGuestbook from "@/../public/guestbook.svg";
 
 import { cn } from "@/lib/utils";
 
@@ -23,6 +27,16 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
 export default function Home({
   stacks,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const router = useRouter();
+
+  const downloadCv = () => {
+    console.log("Downloading CV...");
+    const link = document.createElement("a");
+    link.href = `${router.basePath}/cv/MarcellJoeSugianto_CV.pdf`;
+    link.download = "MarcellJoeSugianto_CV.pdf";
+    link.click();
+  };
+
   return (
     <>
       <Navbar />
@@ -33,21 +47,33 @@ export default function Home({
 
             <div className={cn(
               "w-full",
-              "grid grid-cols-[auto]",
-              "sm:grid-cols-[auto_min-content]",
+              "grid min-w-0 grid-cols-1",
+              "lg:grid-cols-[minmax(0,1fr)_minmax(0,386px)]",
               "gap-[25px]"
             )}>
               <Box>
-                <div>
+                <div className="flex h-full flex-col">
                   <h2>I'm Marcell JS</h2>
 
                   <p>
                     ...or just Marcell for short!<br /><br />
 
-                    I’m studying my third year of my Bachelor’s of IT, and soon to take a master’s degree in 2027. My skillsets are primarily focused on full stack web development. I’m confident in frontend and comfortable with backend, yet still eager to learn more.<br /><br />
+                    I just finished my Bachelor’s in IT at RMIT, and soon will take the Master’s in AI in 2027. My skillsets are primarily focused on full stack web development. I’m confident in frontend and comfortable with backend, yet still eager to learn more.<br /><br />
 
                     I’m currently looking for a web related part-time or an internship to both apply and expand my skillset.
                   </p>
+                  <div className="mt-auto grid grid-cols-1 gap-[15px] pt-[20px]">
+                    <ActionButton
+                      onClick={downloadCv}
+                      maskSrc={IconCv}
+                      label="Get my CV"
+                    />
+                    {/* <ActionButton
+                      onClick={() => router.push("/guestbook")}
+                      maskSrc={IconGuestbook}
+                      label="Guestbook"
+                    /> */}
+                  </div>
                 </div>
               </Box>
               <Box>
@@ -80,7 +106,7 @@ export default function Home({
                   <ExperienceCard 
                   title="RMIT Peer Mentor"
                   year={ 2025 }
-                  subtitle="WorldSkills National Competition in Web Design and Development"
+                  subtitle="Web Programming A, Programming A and Database Concepts A"
                   place="RMIT University"
                   tags={[
                     "Web Developing",
@@ -122,8 +148,9 @@ export default function Home({
               <Box>
                 <div className="flex flex-col gap-[25px]">
                   <ProjectCard
+                    screenshot={`${router.basePath}/projects/portfolio.png`}
                     githubUrl="https://github.com/Marcell-J-Sugianto"
-                    projectUrl="https://example.com"
+                    projectUrl="https://marcell-js.com/portfolio"
                     title="Portfolio Website"
                     description="A personal portfolio showcasing my experience, technical skills, and selected projects."
                     tags={["Next.js", "React", "Tailwind CSS"]}

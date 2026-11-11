@@ -1,11 +1,16 @@
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import CallbackIconButton from "@/components/CallbackIconButton";
 import { useTheme } from "@/context/ThemeContext";
 
 import IconLightMode from "@/../public/light-mode.svg";
 import IconDarkMode from "@/../public/dark-mode.svg";
 
-const Navbar = () => {
+interface NavbarProps {
+    homeOnly?: boolean;
+}
+
+const Navbar = ({ homeOnly = false }: NavbarProps) => {
     const { theme, toggleTheme } = useTheme();
 
     return (
@@ -21,7 +26,11 @@ const Navbar = () => {
                 "px-[10px]"
             )}>
                 <div className="flex items-center justify-start gap-[20px]">
-                    {[
+                    {homeOnly ? (
+                        <Link href="/" className="shrink-0 text-(--text-2) transition-colors hover:text-(--text-green)">
+                            Home
+                        </Link>
+                    ) : ([
                         ["Home", "home"],
                         ["Stack", "stack"],
                         ["Experience", "experience"],
@@ -34,19 +43,17 @@ const Navbar = () => {
                         >
                             {label}
                         </a>
-                    ))}
+                    )))}
                 </div>
-                
-                
 
-                
-                <CallbackIconButton
-                    maskSrc={theme === "dark" ? IconLightMode : IconDarkMode}
-                    label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                    ariaPressed={theme === "dark"}
-                    onClick={toggleTheme}
-                />
-                
+                {/* {!homeOnly && (
+                    <CallbackIconButton
+                        maskSrc={theme === "dark" ? IconLightMode : IconDarkMode}
+                        label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+                        ariaPressed={theme === "dark"}
+                        onClick={toggleTheme}
+                    />
+                )} */}
             </div>
         </nav>
     );

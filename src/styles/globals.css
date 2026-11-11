@@ -10,6 +10,7 @@ html {
   /* Shared color and typography tokens used across the portfolio. */
   --primary: #273E35;
   --secondary: #96DA92;
+  --button-pressed: #76C572;
   --background-1: #EFF5F3;
   --background-2: #CDD6D2;
   --text-1: #0A100D;
@@ -39,6 +40,7 @@ html {
 .theme-shell.dark {
   --primary: #273E35;
   --secondary: #96DA92;
+  --button-pressed: #76C572;
   --background-1: #EFF5F3;
   --background-2: #CDD6D2;
   --text-1: #0A100D;

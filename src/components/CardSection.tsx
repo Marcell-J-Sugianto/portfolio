@@ -81,7 +81,7 @@ export default function CardSection() {
 
     return (
         <div
-        className={cn("grid gap-[25px] justify-center")}>
+        className={cn("grid w-full min-w-0 justify-items-center gap-[25px]")}>
             <Card
             flipped={firstFlipped}
             quote={quotes[quoteIndex].text}

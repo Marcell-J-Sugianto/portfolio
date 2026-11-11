@@ -54,7 +54,7 @@ const StackSlider = ({
               <div
                 key={`${copy}-${stack}`}
                 className="flex shrink-0 items-center justify-center"
-                style={{ height: logoHeight }}
+                style={{ width: logoHeight, height: logoHeight }}
               >
                 <Image
                   // Public image paths need the configured prefix applied explicitly.
@@ -68,7 +68,9 @@ const StackSlider = ({
                   height={logoHeight}
                   loading="eager"
                   className={cn(
-                    "h-full w-auto max-w-[160px] object-contain",
+                    // A square slot matches the current logo set and reserves its final
+                    // layout size before each SVG's intrinsic dimensions are available.
+                    "h-full w-full object-contain",
                     "ease-in-out duration-300",
                     "saturate-0 opacity-70",
                     "hover:saturate-100 hover:opacity-100",

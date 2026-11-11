@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 import IconButton from "./IconButton";
@@ -15,10 +16,38 @@ interface CardProps {
   flipFunction: () => void;
 }
 
+const CARD_W = 336;
+const CARD_H = 192;
+
 const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
+    const frameRef = useRef<HTMLDivElement>(null);
+    const [scale, setScale] = useState(1);
+
+    useEffect(() => {
+        const frame = frameRef.current;
+        if (!frame) return;
+
+        const resizeObserver = new ResizeObserver(([entry]) => {
+            const width = Math.floor(entry.contentRect.width);
+            setScale(Math.min(1, width / CARD_W));
+        });
+
+        resizeObserver.observe(frame);
+        return () => resizeObserver.disconnect();
+    }, []);
+
     return (
         <div
-        className="w-[336px] h-[192px]">
+        ref={frameRef}
+        className="relative aspect-[7/4] w-full max-w-[336px]">
+            {/* Scale the fixed design canvas as one unit to preserve its layout proportions. */}
+            <div
+            className="absolute left-0 top-0 origin-top-left"
+            style={{
+                width: CARD_W,
+                height: CARD_H,
+                transform: scale < 1 ? `scale(${scale})` : undefined,
+            }}>
             <div
             className={cn(
                 "w-full h-full",
@@ -177,6 +206,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                     </div>
 
                 </div>
+            </div>
             </div>
         </div>
     );
