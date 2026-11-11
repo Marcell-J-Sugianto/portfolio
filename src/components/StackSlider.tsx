@@ -1,5 +1,4 @@
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "@/lib/utils";
@@ -36,8 +35,7 @@ const StackSlider = ({
     >
       <div
         className={cn(
-          "flex w-max",
-          imagesReady && "animate-logo-slider",
+          "flex w-max animate-logo-slider",
           reverse && "[animation-direction:reverse]"
         )}
         style={{ animationDuration: `${speed}s` }}
@@ -47,7 +45,7 @@ const StackSlider = ({
           <div
             key={copy}
             aria-hidden={copy === 1}
-            className="stack-slider-track flex shrink-0 items-center"
+            className="flex shrink-0 items-center"
             style={{ gap, paddingRight: gap }}
           >
             {stacks.map((stack) => (
@@ -66,7 +64,6 @@ const StackSlider = ({
                   }
                   width={160}
                   height={logoHeight}
-                  loading="eager"
                   className={cn(
                     // A square slot matches the current logo set and reserves its final
                     // layout size before each SVG's intrinsic dimensions are available.
