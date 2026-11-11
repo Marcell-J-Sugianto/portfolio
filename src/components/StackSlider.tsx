@@ -42,7 +42,7 @@ const StackSlider = ({
         )}
         style={{ animationDuration: `${speed}s` }}
       >
-        {/* Two identical tracks make the -50% animation loop seamlessly. */}
+        {/* Two identical tracks make the -50% animation loop seamlessly */}
         {[0, 1].map((copy) => (
           <div
             key={copy}
