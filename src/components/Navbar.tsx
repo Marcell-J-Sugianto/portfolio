@@ -31,8 +31,9 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
         mobile = false,
     ) => {
         const className = cn(
+            "font-fira-code tracking-[-1px]",
             mobile
-                ? "flex h-[50px] w-full shrink-0 items-center justify-center rounded-[10px] text-(--text-1)"
+                ? "flex h-[50px] w-full shrink-0 items-center justify-center rounded-[10px] px-[25px] text-(--text-1) font-semibold"
                 : cn(
                     "shrink-0 transition-colors hover:text-(--text-green)",
                     theme === "dark" ? "text-(--text-1)" : "text-(--text-2)"
@@ -100,7 +101,7 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
 
                     <div className="ml-auto flex h-full items-center gap-[10px]">
                         <CallbackIconButton
-                            maskSrc={theme === "dark" ? IconDarkMode : IconLightMode}
+                            maskSrc={theme === "dark" ? IconLightMode : IconDarkMode}
                             label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
                             onClick={toggleTheme}
                         />

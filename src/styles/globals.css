@@ -38,7 +38,7 @@ html {
 }
 
 .theme-shell.dark {
-  --primary: #2b4a3d;
+  --primary: #273E35;
   --secondary: #96DA92;
   --button-pressed: #76C572;
   --background-1: #090c0b;
@@ -51,11 +51,39 @@ html {
   --shadow-accent: #96DA9240;
 }
 
+/* A few prominent headings retain the site's body font instead of the code heading face. */
+.font-fira-sans {
+  font-family: var(--font-fira-sans), sans-serif;
+  letter-spacing: normal;
+}
+
+.font-fira-code {
+  font-family: var(--font-fira-code), monospace;
+}
+
 h1 {
+  font-family: var(--font-fira-code), monospace;
+  letter-spacing: -2px;
   font-size: 48px;
   line-height: 58px;
   font-weight: 600;
   padding: 20px 0;
+}
+
+h2 {
+  font-family: var(--font-fira-code), monospace;
+  letter-spacing: -1px;
+  font-size: 36px;
+  line-height: 43px;
+  font-weight: 600;
+  padding: 0 0 20px 0;
+}
+
+p {
+  font-size: 16px;
+  line-height: 19px;
+  font-weight: 400;
+  padding: 0;
 }
 
 /* Fade tooltips in without tying their placement to the button's container. */
@@ -79,20 +107,6 @@ h1 {
   .icon-button-tooltip {
     animation: none;
   }
-}
-
-h2 {
-  font-size: 36px;
-  line-height: 43px;
-  font-weight: 600;
-  padding: 0 0 20px 0;
-}
-
-p {
-  font-size: 16px;
-  line-height: 19px;
-  font-weight: 400;
-  padding: 0;
 }
 
 /* Greeting animation. */
