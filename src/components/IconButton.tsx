@@ -24,7 +24,7 @@ const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
             <button
             className={cn(
                 "h-[30px] w-[30px] cursor-pointer rounded-full bg-(--secondary)",
-                "duration-[200ms] ease-out hover:shadow-[0_0_1px_1px_var(--shadow-accent)]"
+                "duration-[200ms] ease-out hover:shadow-[0_0_1px_1px_var(--shadow-accent)] active:shadow-[0_0_1px_1px_var(--shadow-accent)]"
             )}
             type="button"
             aria-label={label}
@@ -36,7 +36,7 @@ const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
             onClick={redirect}>
                 <span
                 aria-hidden="true"
-                className="block h-full w-full transform-gpu backface-hidden bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px]"
+                className="block h-full w-full transform-gpu backface-hidden bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px] active:blur-[9px]"
                 style={{
                     maskImage: `url(${maskSrc.src})`,
                     maskSize: "70%",

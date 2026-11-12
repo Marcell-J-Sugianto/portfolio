@@ -2,8 +2,9 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import CallbackIconButton from "@/components/CallbackIconButton";
-import IconHamburger from "@/../public/hamburger.svg";
-import IconClose from "@/../public/close.svg";
+import IconLogo from "@/../public/logo/logo.svg";
+import IconHamburger from "@/../public/icons/hamburger.svg";
+import IconClose from "@/../public/icons/close.svg";
 
 interface NavbarProps {
     homeOnly?: boolean;
@@ -52,15 +53,42 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
                 aria-label="Main navigation"
                 className={cn(
                     "sticky top-0 z-50 flex h-[60px] justify-center",
-                    "bg-(--primary)"
+                    "bg-(--primary) shadow-[0_4px_16px_0_var(--shadow-dark)]"
                 )}
             >
-                <div className="flex h-full w-full max-w-[1024px] items-center justify-between px-[10px]">
-                    <div className="hidden items-center justify-start gap-[20px] sm:flex">
-                        {links.map((link) => renderLink(link))}
+                <div className="flex h-full w-full max-w-[1024px] items-center justify-between px-[15px] sm:px-[10px]">
+                    <div className="flex h-full items-center gap-[20px]">
+                        <Link
+                            href={homeOnly ? "/" : "#home"}
+                            aria-label="Go to home section"
+                            className="flex shrink-0 items-center"
+                            onClick={() => setMenuOpen(false)}
+                        >
+                            {/* Use the SVG as a mask so its fill follows the site's text color token. */}
+                            <span
+                                aria-hidden="true"
+                                className="block h-[24px] w-[39px] translate-y-0 bg-(--text-2) transition-colors duration-200 ease-out hover:bg-(--secondary) active:bg-(--secondary) sm:h-[20px] sm:w-[32px] sm:-translate-y-[2px]"
+                                style={{
+                                    maskImage: `url(${IconLogo.src})`,
+                                    maskSize: "contain",
+                                    maskPosition: "center",
+                                    maskRepeat: "no-repeat",
+                                    WebkitMaskImage: `url(${IconLogo.src})`,
+                                    WebkitMaskSize: "contain",
+                                    WebkitMaskPosition: "center",
+                                    WebkitMaskRepeat: "no-repeat",
+                                }}
+                            />
+                        </Link>
+
+                        <div className="hidden items-center justify-start gap-[20px] sm:flex">
+                            {links
+                                .filter((link) => link.label !== "Home")
+                                .map((link) => renderLink(link))}
+                        </div>
                     </div>
 
-                    <div className="sm:hidden h-full flex items-center">
+                    <div className="ml-auto flex h-full items-center sm:hidden">
                         <CallbackIconButton
                             maskSrc={menuOpen ? IconClose : IconHamburger}
                             label={menuOpen ? "Close navigation menu" : "Open navigation menu"}

@@ -31,7 +31,7 @@ const ActionButton = ({ onClick, maskSrc, label }: ActionButtonProps) => {
           )}
         >
           <span
-            className="block size-[26px] bg-(--text-1) group-hover:blur-[4px]"
+            className="block size-[26px] bg-(--text-1) duration-[200ms] ease-out group-hover:blur-[4px] group-active:blur-[4px]"
             style={{
               maskImage: `url(${maskSrc.src})`,
               maskSize: "contain",
