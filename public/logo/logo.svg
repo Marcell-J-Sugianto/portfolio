@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="37.138557mm"
+   width="37.138496mm"
    height="18.456253mm"
-   viewBox="0 0 37.138557 18.456253"
+   viewBox="0 0 37.138496 18.456253"
    version="1.1"
    id="svg1"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -27,22 +27,19 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(276.89524,-117.61828)">
-    <text
-       xml:space="preserve"
-       style="font-weight:bold;font-size:26.4583px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono Bold';text-align:center;letter-spacing:-1.32292px;text-anchor:middle;fill:#000000;stroke-width:1.06468;paint-order:stroke markers fill"
-       x="-258.28177"
-       y="135.8745"
+     transform="translate(276.89518,-117.61828)">
+    <g
        id="text1"
-       inkscape:export-filename="logo.svg"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"><tspan
-         sodipodi:role="line"
-         id="tspan1"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Fira Code';-inkscape-font-specification:'Fira Code';letter-spacing:-1.32292px;fill:#000000;stroke-width:1.06468"
-         x="-258.94324"
-         y="135.8745">M<tspan
-   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14.8167px;font-family:'Fira Code';-inkscape-font-specification:'Fira Code';letter-spacing:-1.32292px;fill:#000000"
-   id="tspan2">.JS</tspan></tspan></text>
+       style="font-weight:bold;font-size:26.4583px;font-family:'Ubuntu Mono';-inkscape-font-specification:'Ubuntu Mono Bold';text-align:center;letter-spacing:-1.32292px;text-anchor:middle;stroke-width:1.06468;paint-order:stroke markers fill"
+       aria-label="M.JS">
+      <path
+         style="font-weight:normal;font-family:'Fira Code';-inkscape-font-specification:'Fira Code'"
+         d="m -263.4015,117.61827 1.03187,18.25623 h -2.80458 l -0.43656,-8.88999 q -0.0397,-1.00542 -0.0661,-1.94469 -0.0132,-0.93927 -0.0132,-1.79916 0,-0.8599 0.0132,-1.5875 0.0265,-0.74083 0.0529,-1.33614 l -2.68552,12.34279 h -2.67229 l -2.88395,-12.34279 q 0.0397,0.56885 0.0662,1.33614 0.0264,0.75406 0.0397,1.62719 0.0132,0.87312 0,1.82562 0,0.9525 -0.0265,1.905 l -0.35718,8.86353 h -2.75167 l 1.03188,-18.25623 h 3.6777 l 2.60614,12.23696 2.48708,-12.23696 z"
+         id="path5" />
+      <path
+         style="font-weight:normal;font-size:14.8167px;font-family:'Fira Code';-inkscape-font-specification:'Fira Code'"
+         d="m -260.01006,134.6373 q 0,-0.40005 0.18521,-0.71861 0.19261,-0.32597 0.51858,-0.51858 0.32597,-0.19262 0.72602,-0.19262 0.40746,0 0.73343,0.19262 0.32596,0.19261 0.51117,0.51858 0.19262,0.31856 0.19262,0.71861 0,0.39264 -0.19262,0.72602 -0.18521,0.32597 -0.51117,0.51858 -0.32597,0.19262 -0.73343,0.19262 -0.40005,0 -0.72602,-0.19262 -0.32597,-0.19261 -0.51858,-0.51858 -0.18521,-0.33338 -0.18521,-0.72602 z m 12.0862,-8.98633 v 6.71938 q 0,0.73342 -0.20744,1.40018 -0.20743,0.66675 -0.65934,1.18533 -0.4445,0.51118 -1.1557,0.81492 -0.7038,0.29633 -1.70392,0.29633 -0.84456,0 -1.56317,-0.24447 -0.71861,-0.24448 -1.34832,-0.69639 l 0.7038,-1.09643 q 0.60748,0.40005 1.11866,0.54081 0.51858,0.14076 1.02235,0.14076 0.96309,0 1.51871,-0.6149 0.56304,-0.61489 0.56304,-1.76318 v -5.36365 h -3.07447 v -1.31869 z m 8.16718,7.33427 q 0,0.90382 -0.46673,1.60761 -0.45931,0.69639 -1.3335,1.08903 -0.86678,0.39264 -2.09656,0.39264 -1.24461,0 -2.18547,-0.37042 -0.93345,-0.37782 -1.57797,-1.00012 l 0.94086,-1.05199 q 0.54821,0.49636 1.23719,0.78529 0.68898,0.28151 1.57798,0.28151 0.57785,0 1.05939,-0.1778 0.48155,-0.18521 0.77047,-0.54821 0.28893,-0.37042 0.28893,-0.92605 0,-0.45191 -0.18521,-0.76306 -0.18521,-0.31115 -0.64453,-0.56303 -0.45191,-0.25189 -1.26683,-0.48895 -1.08162,-0.32597 -1.81504,-0.72602 -0.73343,-0.40005 -1.11125,-0.95568 -0.37042,-0.56303 -0.37042,-1.36314 0,-0.82973 0.45191,-1.45203 0.45931,-0.6223 1.25201,-0.96309 0.8001,-0.34819 1.80764,-0.34819 1.11125,0 1.94098,0.31856 0.82974,0.31856 1.48167,0.91123 l -0.90382,1.02235 q -0.5408,-0.47414 -1.16311,-0.68898 -0.61489,-0.21484 -1.25201,-0.21484 -0.51858,0 -0.94086,0.14817 -0.42227,0.14816 -0.66675,0.43709 -0.24447,0.28892 -0.24447,0.73343 0,0.39264 0.21484,0.67416 0.22225,0.28151 0.74083,0.52599 0.526,0.23707 1.43722,0.51117 0.85937,0.25189 1.54094,0.62231 0.68898,0.37041 1.08162,0.97049 0.40005,0.60008 0.40005,1.57057 z"
+         id="path6" />
+    </g>
   </g>
 </svg>
