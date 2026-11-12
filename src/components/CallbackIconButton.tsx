@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import ViewportTooltip from "@/components/ViewportTooltip";
+import { useTheme } from "@/context/ThemeContext";
 
 interface CallbackIconButtonProps {
   onClick: () => void;
@@ -15,6 +16,7 @@ const CallbackIconButton = ({
   label,
   ariaPressed,
 }: CallbackIconButtonProps) => {
+  const { theme } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [hovered, setHovered] = useState(false);
   const [keyboardFocused, setKeyboardFocused] = useState(false);
@@ -44,7 +46,10 @@ const CallbackIconButton = ({
       >
         <span
           aria-hidden="true"
-          className="block h-full w-full bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px] active:blur-[9px]"
+          className={cn(
+            "block h-full w-full duration-[200ms] ease-out hover:blur-[9px] active:blur-[9px]",
+            theme === "dark" ? "bg-(--text-2)" : "bg-(--text-1)"
+          )}
           style={{
             maskImage: `url(${maskSrc.src})`,
             maskSize: "70%",

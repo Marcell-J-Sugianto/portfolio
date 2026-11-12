@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/context/ThemeContext";
 
 interface ActionButtonProps {
   onClick: () => void;
@@ -8,6 +9,8 @@ interface ActionButtonProps {
 
 /** Full-width raised callback button with a centered icon and visible label. */
 const ActionButton = ({ onClick, maskSrc, label }: ActionButtonProps) => {
+  const { theme } = useTheme();
+
   return (
     <span className="relative block w-full">
       <button
@@ -31,7 +34,10 @@ const ActionButton = ({ onClick, maskSrc, label }: ActionButtonProps) => {
           )}
         >
           <span
-            className="block size-[26px] bg-(--text-1) duration-[200ms] ease-out group-hover:blur-[4px] group-active:blur-[4px]"
+            className={cn(
+              "block size-[26px] bg-(--text-1) duration-[200ms] ease-out group-hover:blur-[4px] group-active:blur-[4px]",
+              theme === "dark" && "group-hover:bg-(--text-2) group-active:bg-(--text-2)"
+            )}
             style={{
               maskImage: `url(${maskSrc.src})`,
               maskSize: "contain",

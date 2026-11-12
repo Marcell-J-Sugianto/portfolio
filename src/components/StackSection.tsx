@@ -63,7 +63,7 @@ export default function StackSection({ stacks }: StackSectionProps) {
                         ]} />
 
                         <StackCard 
-                        title="Others"
+                        title="Tools"
                         stack={[
                             "Figma",
                             "Claude",

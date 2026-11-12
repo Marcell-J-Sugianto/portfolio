@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import ViewportTooltip from "@/components/ViewportTooltip";
+import { useTheme } from "@/context/ThemeContext";
 
 interface IconButtonProps {
   href: string;
@@ -9,6 +10,7 @@ interface IconButtonProps {
 }
 
 const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
+    const { theme } = useTheme();
     const buttonRef = useRef<HTMLButtonElement>(null);
     const [hovered, setHovered] = useState(false);
     const [keyboardFocused, setKeyboardFocused] = useState(false);
@@ -36,7 +38,10 @@ const IconButton = ({ href, maskSrc, label }: IconButtonProps) => {
             onClick={redirect}>
                 <span
                 aria-hidden="true"
-                className="block h-full w-full transform-gpu backface-hidden bg-(--text-1) duration-[200ms] ease-out hover:blur-[9px] active:blur-[9px]"
+                className={cn(
+                    "block h-full w-full transform-gpu backface-hidden duration-[200ms] ease-out hover:blur-[9px] active:blur-[9px]",
+                    theme === "dark" ? "bg-(--text-2)" : "bg-(--text-1)"
+                )}
                 style={{
                     maskImage: `url(${maskSrc.src})`,
                     maskSize: "70%",
