@@ -38,17 +38,17 @@ html {
 }
 
 .theme-shell.dark {
-  --primary: #273E35;
+  --primary: #2b4a3d;
   --secondary: #96DA92;
   --button-pressed: #76C572;
-  --background-1: #EFF5F3;
-  --background-2: #CDD6D2;
-  --text-1: #0A100D;
-  --text-2: #EFF5F3;
+  --background-1: #090c0b;
+  --background-2: #141817;
+  --text-1: #EFF5F3;
+  --text-2: #0A100D;
   --text-green: #96DA92;
-  --shadow-light: #EFF5F380;
-  --shadow-dark: #0A100D80;
-  --shadow-accent: #96DA9280;
+  --shadow-light: #aaacab1a;
+  --shadow-dark: #000000b3;
+  --shadow-accent: #96DA9240;
 }
 
 h1 {

@@ -2,9 +2,12 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import CallbackIconButton from "@/components/CallbackIconButton";
+import { useTheme } from "@/context/ThemeContext";
 import IconLogo from "@/../public/logo/logo.svg";
 import IconHamburger from "@/../public/icons/hamburger.svg";
 import IconClose from "@/../public/icons/close.svg";
+import IconLightMode from "@/../public/icons/light-mode.svg";
+import IconDarkMode from "@/../public/icons/dark-mode.svg";
 
 interface NavbarProps {
     homeOnly?: boolean;
@@ -12,6 +15,7 @@ interface NavbarProps {
 
 const Navbar = ({ homeOnly = false }: NavbarProps) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     const links = homeOnly
         ? [{ label: "Home", href: "/", sectionId: "home" }]
@@ -29,7 +33,10 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
         const className = cn(
             mobile
                 ? "flex h-[50px] w-full shrink-0 items-center justify-center rounded-[10px] text-(--text-1)"
-                : "shrink-0 text-(--text-2) transition-colors hover:text-(--text-green)",
+                : cn(
+                    "shrink-0 transition-colors hover:text-(--text-green)",
+                    theme === "dark" ? "text-(--text-1)" : "text-(--text-2)"
+                ),
             mobile && [
                 "shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]",
                 "active:shadow-none active:inset-shadow-[4px_4px_16px_8px_var(--shadow-dark),_-4px_-4px_16px_8px_var(--background-1)]",
@@ -67,7 +74,10 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
                             {/* Use the SVG as a mask so its fill follows the site's text color token. */}
                             <span
                                 aria-hidden="true"
-                                className="block h-[24px] w-[39px] translate-y-0 bg-(--text-2) transition-colors duration-200 ease-out hover:bg-(--secondary) active:bg-(--secondary) sm:h-[20px] sm:w-[32px] sm:-translate-y-[2px]"
+                                className={cn(
+                                    "block h-[24px] w-[39px] translate-y-0 transition-colors duration-200 ease-out hover:bg-(--secondary) active:bg-(--secondary) sm:h-[20px] sm:w-[32px] sm:-translate-y-[2px]",
+                                    theme === "dark" ? "bg-(--text-1)" : "bg-(--text-2)"
+                                )}
                                 style={{
                                     maskImage: `url(${IconLogo.src})`,
                                     maskSize: "contain",
@@ -88,13 +98,21 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
                         </div>
                     </div>
 
-                    <div className="ml-auto flex h-full items-center sm:hidden">
+                    <div className="ml-auto flex h-full items-center gap-[10px]">
+                        <CallbackIconButton
+                            maskSrc={theme === "dark" ? IconDarkMode : IconLightMode}
+                            label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+                            onClick={toggleTheme}
+                        />
+
+                        <div className="flex h-full items-center sm:hidden">
                         <CallbackIconButton
                             maskSrc={menuOpen ? IconClose : IconHamburger}
                             label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
                             ariaPressed={menuOpen}
                             onClick={() => setMenuOpen((open) => !open)}
                         />
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -130,7 +148,7 @@ const Navbar = ({ homeOnly = false }: NavbarProps) => {
                 >
                     {/* The navbar masks the upper shell shadow; the viewport clips its side shadows. */}
                     <div className="w-full rounded-b-[30px] bg-(--background-1) p-[25px] shadow-[-4px_-4px_16px_8px_var(--shadow-light),_4px_4px_16px_8px_var(--shadow-dark)] inset-shadow-[4px_4px_16px_8px_var(--shadow-dark)]">
-                        <div className="flex w-full flex-col gap-[20px] rounded-[20px] bg-(--background-2) p-[25px] inset-shadow-[-4px_-4px_16px_8px_var(--background-2),_4px_4px_16px_8px_var(--shadow-dark)]">
+                        <div className="flex w-full flex-col gap-[20px] rounded-[20px] bg-(--background-1) p-[25px] inset-shadow-[-4px_-4px_16px_8px_var(--background-2),_4px_4px_16px_8px_var(--shadow-dark)]">
                             {links.map((link) => renderLink(link, true))}
                         </div>
                     </div>

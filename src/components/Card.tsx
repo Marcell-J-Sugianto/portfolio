@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/context/ThemeContext";
 
 import IconButton from "./IconButton";
 
@@ -20,6 +21,7 @@ const CARD_W = 336;
 const CARD_H = 192;
 
 const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
+    const { theme } = useTheme();
     const frameRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
 
@@ -158,7 +160,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                     "font-semibold",
                                     "text-(length:--text-sm)",
                                     "leading-[19px]",
-                                    "text-(--text-2)"
+                                    theme === "dark" ? "text-(--text-1)" : "text-(--text-2)"
                                 )}>
                                     Let's connect!
                                 </p>
@@ -198,7 +200,8 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                         "active:shadow-[0_0_1px_1px_var(--shadow-accent)]",
                                         "duration-[200ms] ease-out",
                                         "cursor-pointer",
-                                        "px-[15px]"
+                                        "px-[15px]",
+                                        theme === "dark" && "text-(--text-2)"
                                     )}
                                     onClick={flipFunction}>
                                         Flip!

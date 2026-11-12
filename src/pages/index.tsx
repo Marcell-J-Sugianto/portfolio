@@ -7,6 +7,7 @@ import Box from "@/components/Box";
 import Footer from "@/components/Footer";
 
 import { useRouter } from "next/router";
+import Head from "next/head";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import stacks from "@/generated/stackLogos.json";
 import ActionButton from "@/components/ActionButton";
@@ -39,6 +40,9 @@ export default function Home({
 
   return (
     <>
+      <Head>
+        <title>Marcell JS | Portfolio</title>
+      </Head>
       <Navbar />
       <main className="w-full flex justify-center">
         <div className="w-full max-w-[1024] p-[10px] flex flex-col gap-[20px]">
