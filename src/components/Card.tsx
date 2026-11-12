@@ -85,7 +85,8 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                 "leading-[43px]",
                                 "duration-[200ms] ease-out",
 
-                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
+                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]",
+                                "group-active/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
                             )}>
                                 Marcell JS
                             </h2>
@@ -97,7 +98,8 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                 "leading-[19px]",
                                 "duration-[200ms] ease-out",
 
-                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
+                                "group-hover/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]",
+                                "group-active/card-front:text-shadow-[0_0_5px_var(--shadow-accent)]"
                             )}>
                                 Web Developer
                             </p>
