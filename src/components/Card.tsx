@@ -80,7 +80,8 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                             className={cn(
                                 "font-semibold",
                                 "text-(length:--text-lg)",
-                                "m-0 p-0",
+                                // Important utilities override the unlayered global h2 padding rule.
+                                "!m-0 !p-0",
                                 "leading-[43px]",
                                 "duration-[200ms] ease-out",
 

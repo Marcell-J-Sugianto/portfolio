@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { cn } from "@/lib/utils";
@@ -21,11 +22,23 @@ const StackSlider = ({
   reverse = false,
 }: StackSliderProps) => {
   const { basePath } = useRouter();
+  const [isPressed, setIsPressed] = useState(false);
   if (!stacks.length) return null;
 
   return (
     <div
-      className={cn("w-full overflow-hidden", className)}
+      className={cn(
+        "logo-slider-container w-full overflow-hidden",
+        isPressed && "logo-slider-pressed",
+        className
+      )}
+      onPointerDown={(event) => {
+        setIsPressed(true);
+        event.currentTarget.setPointerCapture(event.pointerId);
+      }}
+      onPointerUp={() => setIsPressed(false)}
+      onPointerCancel={() => setIsPressed(false)}
+      onLostPointerCapture={() => setIsPressed(false)}
       style={{
         maskImage:
           "linear-gradient(to right, transparent, black 10%, black 90%, transparent)",
@@ -71,6 +84,7 @@ const StackSlider = ({
                     "ease-in-out duration-300",
                     "saturate-0 opacity-70",
                     "hover:saturate-100 hover:opacity-100",
+                    "active:saturate-100 active:opacity-100",
                     "cursor-pointer"
                   )}
                   unoptimized={stack.endsWith(".svg")}

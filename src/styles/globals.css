@@ -128,8 +128,16 @@ p {
   will-change: transform;
 }
 
-.logo-slider-container:hover .animate-logo-slider {
+/* Keep the conveyor still only for the duration of a pointer press. */
+.logo-slider-container.logo-slider-pressed .animate-logo-slider {
   animation-play-state: paused;
+}
+
+/* Pause only on devices with a real hover pointer; touch can leave :hover stuck after a tap. */
+@media (hover: hover) and (pointer: fine) {
+  .logo-slider-container:hover .animate-logo-slider {
+    animation-play-state: paused;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
