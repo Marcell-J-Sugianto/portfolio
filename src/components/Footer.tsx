@@ -1,16 +1,16 @@
 import { cn } from "@/lib/utils";
 import IconButton from "@/components/IconButton";
 
-import IconEmail from "@/../public/email.svg";
-import IconPhone from "@/../public/phone.svg";
-import IconGitHub from "@/../public/github.svg";
-import IconLinkedIn from "@/../public/linkedin.svg";
+import IconEmail from "@/../public/icons/email.svg";
+import IconPhone from "@/../public/icons/phone.svg";
+import IconGitHub from "@/../public/icons/github.svg";
+import IconLinkedIn from "@/../public/icons/linkedin.svg";
 
 const Footer = () => {
     const year = new Date().getFullYear();
 
     return (
-        <footer className="w-full bg-(--primary) text-(--text-2) mt-[70px]">
+        <footer className="mt-[70px] w-full bg-(--primary) text-(--text-2) shadow-[0_-4px_16px_0_var(--shadow-dark)]">
             <div className={cn(
                 "mx-auto flex w-full max-w-[1024px] flex-col items-center gap-[15px]",
                 "px-[10px] py-[25px] text-center sm:flex-row sm:justify-between sm:text-left"

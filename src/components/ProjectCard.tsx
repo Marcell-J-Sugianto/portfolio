@@ -2,8 +2,8 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import IconButton from "@/components/IconButton";
 
-import IconGitHub from "@/../public/github.svg";
-import IconLink from "@/../public/link.svg";
+import IconGitHub from "@/../public/icons/github.svg";
+import IconLink from "@/../public/icons/link.svg";
 
 interface ProjectCardProps {
     screenshot: string;

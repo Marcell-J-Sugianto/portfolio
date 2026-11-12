@@ -11,7 +11,13 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 const themeStorageKey = "portfolio-theme";
 
-export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+export const ThemeProvider = ({
+    children,
+    fontClassName,
+}: {
+    children: ReactNode;
+    fontClassName?: string;
+}) => {
     const [theme, setTheme] = useState<Theme>("light");
 
     useEffect(() => {
@@ -45,7 +51,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <ThemeContext.Provider value={contextValue}>
-            <div className={`theme-shell ${theme}`}>
+            <div className={`theme-shell ${theme} ${fontClassName ?? ""}`}>
                 {children}
             </div>
         </ThemeContext.Provider>

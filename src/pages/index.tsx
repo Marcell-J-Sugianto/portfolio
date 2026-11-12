@@ -10,8 +10,8 @@ import { useRouter } from "next/router";
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import stacks from "@/generated/stackLogos.json";
 import ActionButton from "@/components/ActionButton";
-import IconCv from "@/../public/cv.svg";
-import IconGuestbook from "@/../public/guestbook.svg";
+import IconCv from "@/../public/icons/cv.svg";
+import IconGuestbook from "@/../public/icons/guestbook.svg";
 
 import { cn } from "@/lib/utils";
 

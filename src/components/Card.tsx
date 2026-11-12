@@ -3,10 +3,10 @@ import { cn } from "@/lib/utils";
 
 import IconButton from "./IconButton";
 
-import IconEmail from "@/../public/email.svg"
-import IconPhone from "@/../public/phone.svg"
-import IconGitHub from "@/../public/github.svg"
-import IconLinkedIn from "@/../public/linkedin.svg"
+import IconEmail from "@/../public/icons/email.svg"
+import IconPhone from "@/../public/icons/phone.svg"
+import IconGitHub from "@/../public/icons/github.svg"
+import IconLinkedIn from "@/../public/icons/linkedin.svg"
 
 interface CardProps {
   flipped: boolean;
@@ -193,6 +193,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                                         "bg-(--secondary)",
                                         "rounded-full",
                                         "hover:shadow-[0_0_1px_1px_var(--shadow-accent)]",
+                                        "active:shadow-[0_0_1px_1px_var(--shadow-accent)]",
                                         "duration-[200ms] ease-out",
                                         "cursor-pointer",
                                         "px-[15px]"
