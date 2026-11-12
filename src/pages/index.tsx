@@ -58,7 +58,7 @@ export default function Home({
                   <p>
                     ...or just Marcell for short!<br /><br />
 
-                    I just finished my Bachelor’s in IT at RMIT, and soon will take the Master’s in AI in 2027. My skillsets are primarily focused on full stack web development. I’m confident in frontend and comfortable with backend, yet still eager to learn more.<br /><br />
+                    I just finished my Bachelor’s in IT at RMIT, and soon will take my Master’ degree in 2027. My skillsets are primarily focused on full stack web development. I’m confident in frontend and comfortable with backend, yet still eager to learn more.<br /><br />
 
                     I’m currently looking for a web related part-time or an internship to both apply and expand my skillset.
                   </p>
