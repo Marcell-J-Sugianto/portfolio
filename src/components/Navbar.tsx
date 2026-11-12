@@ -1,61 +1,114 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import CallbackIconButton from "@/components/CallbackIconButton";
-import { useTheme } from "@/context/ThemeContext";
-
-import IconLightMode from "@/../public/light-mode.svg";
-import IconDarkMode from "@/../public/dark-mode.svg";
+import IconHamburger from "@/../public/hamburger.svg";
+import IconClose from "@/../public/close.svg";
 
 interface NavbarProps {
     homeOnly?: boolean;
 }
 
 const Navbar = ({ homeOnly = false }: NavbarProps) => {
-    const { theme, toggleTheme } = useTheme();
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const links = homeOnly
+        ? [{ label: "Home", href: "/", sectionId: "home" }]
+        : [
+            { label: "Home", href: "#home", sectionId: "home" },
+            { label: "Stack", href: "#stack", sectionId: "stack" },
+            { label: "Experience", href: "#experience", sectionId: "experience" },
+            { label: "Projects", href: "#projects", sectionId: "projects" },
+        ];
+
+    const renderLink = (
+        { label, href, sectionId }: typeof links[number],
+        mobile = false,
+    ) => {
+        const className = cn(
+            mobile
+                ? "flex h-[50px] w-full shrink-0 items-center justify-center rounded-[10px] text-(--text-1)"
+                : "shrink-0 text-(--text-2) transition-colors hover:text-(--text-green)",
+            mobile && [
+                "shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]",
+                "active:shadow-none active:inset-shadow-[4px_4px_16px_8px_var(--shadow-dark),_-4px_-4px_16px_8px_var(--background-1)]",
+            ]
+        );
+
+        return homeOnly ? (
+            <Link key={sectionId} href={href} className={className} onClick={() => setMenuOpen(false)}>
+                {label}
+            </Link>
+        ) : (
+            <a key={sectionId} href={href} className={className} onClick={() => setMenuOpen(false)}>
+                {label}
+            </a>
+        );
+    };
 
     return (
-        <nav
-        aria-label="Main navigation"
-        className={cn(
-            "sticky top-0 z-50 flex justify-center",
-            "h-[60px] bg-(--primary)"
-        )}>
-            <div
-            className={cn(
-                "flex h-full w-full max-w-[1024px] items-center justify-between",
-                "px-[10px]"
-            )}>
-                <div className="flex items-center justify-start gap-[20px]">
-                    {homeOnly ? (
-                        <Link href="/" className="shrink-0 text-(--text-2) transition-colors hover:text-(--text-green)">
-                            Home
-                        </Link>
-                    ) : ([
-                        ["Home", "home"],
-                        ["Stack", "stack"],
-                        ["Experience", "experience"],
-                        ["Projects", "projects"],
-                    ].map(([label, sectionId]) => (
-                        <a
-                            key={sectionId}
-                            href={`#${sectionId}`}
-                            className="shrink-0 text-(--text-2) transition-colors hover:text-(--text-green)"
-                        >
-                            {label}
-                        </a>
-                    )))}
-                </div>
+        <>
+            <nav
+                aria-label="Main navigation"
+                className={cn(
+                    "sticky top-0 z-50 flex h-[60px] justify-center",
+                    "bg-(--primary)"
+                )}
+            >
+                <div className="flex h-full w-full max-w-[1024px] items-center justify-between px-[10px]">
+                    <div className="hidden items-center justify-start gap-[20px] sm:flex">
+                        {links.map((link) => renderLink(link))}
+                    </div>
 
-                {/* {!homeOnly && (
-                    <CallbackIconButton
-                        maskSrc={theme === "dark" ? IconLightMode : IconDarkMode}
-                        label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-                        ariaPressed={theme === "dark"}
-                        onClick={toggleTheme}
-                    />
-                )} */}
+                    <div className="sm:hidden h-full flex items-center">
+                        <CallbackIconButton
+                            maskSrc={menuOpen ? IconClose : IconHamburger}
+                            label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
+                            ariaPressed={menuOpen}
+                            onClick={() => setMenuOpen((open) => !open)}
+                        />
+                    </div>
+                </div>
+            </nav>
+
+            {/* Full-screen backdrop and drop-down menu for narrow screens. */}
+            <div
+                className={cn(
+                    "fixed inset-0 z-40 sm:hidden",
+                    menuOpen ? "pointer-events-auto" : "pointer-events-none"
+                )}
+                aria-hidden={!menuOpen}
+                inert={!menuOpen}
+            >
+                <button
+                    type="button"
+                    aria-label="Close navigation menu"
+                    tabIndex={-1}
+                    onClick={() => setMenuOpen(false)}
+                    className={cn(
+                        "absolute inset-0 h-full w-full bg-(--primary)/40 backdrop-blur-[6px]",
+                        "transition-opacity duration-300 ease-out motion-reduce:transition-none",
+                        menuOpen ? "opacity-100" : "opacity-0"
+                    )}
+                />
+
+                <nav
+                    aria-label="Mobile navigation"
+                    className={cn(
+                        "absolute left-0 top-[60px] w-full",
+                        "transition-[opacity,translate] duration-300 ease-out motion-reduce:transition-none",
+                        menuOpen ? "translate-y-0 opacity-100" : "-translate-y-[10px] opacity-0"
+                    )}
+                >
+                    {/* The navbar masks the upper shell shadow; the viewport clips its side shadows. */}
+                    <div className="w-full rounded-b-[30px] bg-(--background-1) p-[25px] shadow-[-4px_-4px_16px_8px_var(--shadow-light),_4px_4px_16px_8px_var(--shadow-dark)] inset-shadow-[4px_4px_16px_8px_var(--shadow-dark)]">
+                        <div className="flex w-full flex-col gap-[20px] rounded-[20px] bg-(--background-2) p-[25px] inset-shadow-[-4px_-4px_16px_8px_var(--background-2),_4px_4px_16px_8px_var(--shadow-dark)]">
+                            {links.map((link) => renderLink(link, true))}
+                        </div>
+                    </div>
+                </nav>
             </div>
-        </nav>
+        </>
     );
 };
 
