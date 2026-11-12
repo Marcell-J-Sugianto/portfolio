@@ -57,7 +57,7 @@ export default function Home({
             )}>
               <Box>
                 <div className="flex h-full flex-col">
-                  <h2>I'm Marcell JS</h2>
+                  <h2 className="font-fira-sans">I'm Marcell JS</h2>
 
                   <p>
                     ...or just Marcell for short!<br /><br />

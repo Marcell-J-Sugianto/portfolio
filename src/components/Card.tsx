@@ -80,6 +80,7 @@ const Card = ({ flipped, quote, quoteSource, flipFunction }: CardProps) => {
                         <div className="text-center">
                             <h2
                             className={cn(
+                                "font-fira-sans",
                                 "font-semibold",
                                 "text-(length:--text-lg)",
                                 // Important utilities override the unlayered global h2 padding rule.

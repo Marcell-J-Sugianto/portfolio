@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import IconButton from "@/components/IconButton";
+import { useTheme } from "@/context/ThemeContext";
 
 import IconEmail from "@/../public/icons/email.svg";
 import IconPhone from "@/../public/icons/phone.svg";
@@ -8,9 +9,13 @@ import IconLinkedIn from "@/../public/icons/linkedin.svg";
 
 const Footer = () => {
     const year = new Date().getFullYear();
+    const { theme } = useTheme();
 
     return (
-        <footer className="mt-[70px] w-full bg-(--primary) text-(--text-2) shadow-[0_-4px_16px_0_var(--shadow-dark)]">
+        <footer className={cn(
+            "mt-[70px] w-full bg-(--primary) shadow-[0_-4px_16px_0_var(--shadow-dark)]",
+            theme === "dark" ? "text-(--text-1)" : "text-(--text-2)"
+        )}>
             <div className={cn(
                 "mx-auto flex w-full max-w-[1024px] flex-col items-center gap-[15px]",
                 "px-[10px] py-[25px] text-center sm:flex-row sm:justify-between sm:text-left"

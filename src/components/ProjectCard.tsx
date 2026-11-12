@@ -62,7 +62,7 @@ const ProjectCard = ({
                                 className="absolute inset-0 z-0 rounded-[5px] shadow-[-4px_-4px_16px_4px_var(--shadow-light),_4px_4px_16px_4px_var(--shadow-dark)]"
                             />
                             <span className="relative z-10 inline-block rounded-[5px] bg-(--background-1) px-[7px] py-[4px]">
-                                <span className="size-[14px] leading-[17px]">{tag}</span>
+                                <span className="font-fira-code size-[14px] leading-[17px]">{tag}</span>
                             </span>
                         </li>
                     ))}
