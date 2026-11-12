@@ -32,7 +32,7 @@ export default function StackSection({ stacks }: StackSectionProps) {
                         className={cn(
                         "w-full",
                         "grid grid-cols-[1fr] gap-[25px]",
-                        "md:grid-cols-[1fr_1fr_1fr_1fr]"
+                        "lg:grid-cols-[1fr_1fr_1fr_1fr_1fr]"
                     )}>
 
                         <StackCard 
@@ -63,11 +63,19 @@ export default function StackSection({ stacks }: StackSectionProps) {
                         ]} />
 
                         <StackCard 
-                        title="Tools"
+                        title="Others"
                         stack={[
                             "Figma",
                             "Claude",
                             "ChatGPT (Codex)"
+                        ]} />
+
+                        <StackCard 
+                        title="Others"
+                        stack={[
+                            "Python",
+                            "Java",
+                            "C#"
                         ]} />
                 </div>
             </div>
