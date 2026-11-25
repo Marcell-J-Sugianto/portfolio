@@ -1,162 +1,73 @@
-@import "tailwindcss";
-
-/* Anchor navigation should glide between the portfolio sections. */
-html {
-  scroll-behavior: smooth;
-  background-color: var(--primary);
-}
-
 :root {
-  /* Shared color and typography tokens used across the portfolio. */
-  --primary: #273E35;
-  --secondary: #96DA92;
-  --button-pressed: #76C572;
-  --background-1: #EFF5F3;
-  --background-2: #CDD6D2;
-  --text-1: #0A100D;
-  --text-2: #EFF5F3;
-  --text-green: #96DA92;
-  --shadow-light: #EFF5F380;
-  --shadow-dark: #0A100D80;
-  --shadow-accent: #96DA9280;
-
-  /* FONT SIZES */
-  --text-xl: 48px;
-  --text-lg: 36px;
-  --text-md: 20px;
-  --text-sm: 16px;
-  --text-xs: 14px;
-
-  font-family: "Fira Sans", sans-serif;
-}
-
-/* Theme variables live on the app wrapper, so browser color settings do not override them. */
-.theme-shell {
-  min-height: 100vh;
-  color: var(--text-1);
-  background: var(--background-1);
-}
-
-.theme-shell.dark {
-  --primary: #273E35;
-  --secondary: #96DA92;
-  --button-pressed: #76C572;
-  --background-1: #090c0b;
-  --background-2: #141817;
-  --text-1: #EFF5F3;
-  --text-2: #0A100D;
-  --text-green: #96DA92;
-  --shadow-light: #aaacab1a;
-  --shadow-dark: #000000b3;
-  --shadow-accent: #96DA9240;
-}
-
-/* A few prominent headings retain the site's body font instead of the code heading face. */
-.font-fira-sans {
-  font-family: var(--font-fira-sans), sans-serif;
-  letter-spacing: normal;
-}
-
-.font-fira-code {
-  font-family: var(--font-fira-code), monospace;
-}
-
-h1 {
-  font-family: var(--font-fira-code), monospace;
-  letter-spacing: -2px;
-  font-size: 48px;
-  line-height: 58px;
-  font-weight: 600;
-  padding: 20px 0;
-}
-
-h2 {
-  font-family: var(--font-fira-code), monospace;
-  letter-spacing: -1px;
-  font-size: 36px;
-  line-height: 43px;
-  font-weight: 600;
-  padding: 0 0 20px 0;
-}
-
-p {
+  --coast-sky: #f99e96;
+  --coast-glow: #ffd0ae;
+  --coast-sun: #fff2bb;
+  --coast-land: #a95164;
+  --coast-sea: #534162;
+  --coast-ink: #382335;
+  --coast-sand: #fff3df;
+  --font-heading: 'Book Antiqua', Georgia, serif;
+  font-family: 'Segoe UI', Arial, sans-serif;
   font-size: 16px;
-  line-height: 19px;
-  font-weight: 400;
-  padding: 0;
+  background: var(--coast-sand);
 }
 
-/* Fade tooltips in without tying their placement to the button's container. */
-@keyframes tooltip-appear {
-  from {
-    opacity: 0;
-    transform: translateY(4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --page: var(--coast-sand);
+  --surface: #fffaf1;
+  --text: var(--coast-ink);
+  --outline: #cd9b95;
+  --placeholder: #534162;
+  --accent: #7c354d;
+  --quote: #5e3752;
+  --header: var(--coast-sky);
+  --hero: linear-gradient(180deg, var(--coast-sky), #ffc1a0 58%, var(--coast-glow));
+  --dusk: #473450;
+  --ocean: #3a365f;
 }
 
-.icon-button-tooltip {
-  animation: tooltip-appear 160ms ease-out both;
+[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #2d233c;
+  --surface: #473450;
+  --text: var(--coast-sand);
+  --outline: #a17c9c;
+  --placeholder: #534162;
+  --accent: var(--coast-glow);
+  --quote: #f2c5cf;
+  --header: #473450;
+  --hero: linear-gradient(180deg, #473450, #713e58 58%, #534162);
+  --dusk: #382b43;
+  --ocean: #302c50;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .icon-button-tooltip {
-    animation: none;
-  }
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+[data-theme] {
+  min-height: 100vh;
+  background: var(--page);
+  color: var(--text);
+  line-height: 1.55;
 }
 
-/* Greeting animation. */
-@keyframes bobbing {
-  0%, 100% {
-    transform: translateY(0);
-    animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Decelerate as it rises */
-  }
-  50% {
-    transform: translateY(-15px); /* Peak height of the jump */
-    animation-timing-function: cubic-bezier(0.55, 0.085, 0.68, 0.53); /* Accelerate as it falls */
-  }
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 }
 
-.bob-element {
-  display: inline-block; /* Required if applying to inline text or icons */
-  animation: bobbing 0.6s ease-in-out infinite;
+a:hover { text-decoration-thickness: 2px; }
+
+::selection { color: var(--coast-ink); background: var(--coast-glow); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
-/* The duplicated logo track moves by half its width for a seamless loop. */
-@keyframes logo-slider {
-  from {
-    transform: translateX(0);
-  }
+h1, h2, h3, p, figure, blockquote { margin: 0; }
 
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.animate-logo-slider {
-  animation: logo-slider 30s linear infinite;
-  will-change: transform;
-}
-
-/* Keep the conveyor still only for the duration of a pointer press. */
-.logo-slider-container.logo-slider-pressed .animate-logo-slider {
-  animation-play-state: paused;
-}
-
-/* Pause only on devices with a real hover pointer; touch can leave :hover stuck after a tap. */
-@media (hover: hover) and (pointer: fine) {
-  .logo-slider-container:hover .animate-logo-slider {
-    animation-play-state: paused;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .animate-logo-slider {
-    animation-play-state: paused;
-  }
-}
-
+h1, h2, h3 { font-family: var(--font-heading); }

@@ -1,170 +1,156 @@
-import Navbar from "@/components/Navbar";
-import CardSection from "@/components/CardSection";
-import StackSection from "@/components/StackSection";
-import ExperienceCard from "@/components/ExperienceCard";
-import ProjectCard from "@/components/ProjectCard";
-import Box from "@/components/Box";
-import Footer from "@/components/Footer";
-
-import { useRouter } from "next/router";
 import Head from "next/head";
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
-import stacks from "@/generated/stackLogos.json";
-import ActionButton from "@/components/ActionButton";
-import IconCv from "@/../public/icons/cv.svg";
-import IconGuestbook from "@/../public/icons/guestbook.svg";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import styles from "@/styles/Home.module.css";
 
-interface HomeProps {
-  stacks: string[];
+const sections = [
+  { id: "welcome", title: "Welcome" },
+  { id: "stack", title: "My Stack" },
+  { id: "experience", title: "Experience" },
+  { id: "projects", title: "Projects" },
+];
+
+const stack = [
+  { title: "Frameworks & libraries", tools: ["React", "Next.js", "Express.js", "Tailwind CSS"] },
+  { title: "Cloud & databases", tools: ["AWS", "DynamoDB", "MySQL", "MSSQL"] },
+  { title: "DevOps", tools: ["Ansible", "Terraform", "Docker", "GitHub Actions"] },
+  { title: "Tools", tools: ["Figma", "Claude", "ChatGPT"] },
+  { title: "Other languages", tools: ["Python", "Java", "C#"] },
+];
+
+const milestones = [
+  { date: "Since 2025", title: "RMIT Peer Mentor", organisation: "RMIT University" },
+  { date: "2025", title: "2nd place nationally", organisation: "WorldSkills Australia" },
+  { date: "2024", title: "3rd place regionally", organisation: "WorldSkills Australia" },
+];
+
+function ImagePlaceholder() {
+  return (
+    <div className={styles.media}>
+      <Image src="/vercel.svg" alt="" width={80} height={69} />
+    </div>
+  );
 }
 
-// The build-generated manifest keeps filesystem access out of the deployed Worker.
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  return { props: { stacks } };
-};
+export default function Home() {
+  const [scrolled, setScrolled] = useState(false);
 
-export default function Home({
-  stacks,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const router = useRouter();
-
-  const downloadCv = () => {
-    console.log("Downloading CV...");
-    const link = document.createElement("a");
-    link.href = `${router.basePath}/cv/MarcellJoeSugianto_CV.pdf`;
-    link.download = "MarcellJoeSugianto_CV.pdf";
-    link.click();
-  };
+  useEffect(() => {
+    const updateScroll = () => setScrolled(window.scrollY > 0);
+    updateScroll();
+    window.addEventListener("scroll", updateScroll, { passive: true });
+    return () => window.removeEventListener("scroll", updateScroll);
+  }, []);
 
   return (
     <>
       <Head>
         <title>Marcell JS | Portfolio</title>
+        <meta name="description" content="The portfolio of Marcell JS, a web developer in Melbourne." />
       </Head>
-      <Navbar />
-      <main className="w-full flex justify-center">
-        <div className="w-full max-w-[1024] p-[10px] flex flex-col gap-[20px]">
-          <section id="home" className="w-full scroll-mt-[80px]">
-            <h1>Welcome <span className="bob-element">🙌</span></h1>
 
-            <div className={cn(
-              "w-full",
-              "grid min-w-0 grid-cols-1",
-              "lg:grid-cols-[minmax(0,1fr)_minmax(0,386px)]",
-              "gap-[25px]"
-            )}>
-              <Box>
-                <div className="flex h-full flex-col">
-                  <h2 className="font-fira-sans">I'm Marcell JS</h2>
+      <a className={styles.skip} href="#main">Skip to content</a>
 
-                  <p>
-                    ...or just Marcell for short!<br /><br />
-
-                    I just finished my Bachelor’s in IT at RMIT, and soon will take my Master’s degree in AI in 2027. My skillsets are primarily focused on full stack web development. I’m confident in frontend and comfortable with backend, yet still eager to learn more.<br /><br />
-
-                    I’m currently looking for a web related part-time or an internship to both apply and expand my skillset.
-                  </p>
-                  <div className="mt-auto grid grid-cols-1 gap-[15px] pt-[20px]">
-                    <ActionButton
-                      onClick={downloadCv}
-                      maskSrc={IconCv}
-                      label="Get my CV"
-                    />
-                    {/* <ActionButton
-                      onClick={() => router.push("/guestbook")}
-                      maskSrc={IconGuestbook}
-                      label="Guestbook"
-                    /> */}
-                  </div>
-                </div>
-              </Box>
-              <Box>
-                <CardSection />
-              </Box>
-            </div>
-          </section>
-
-          <section id="stack" className="w-full scroll-mt-[80px]">
-              <h1>My Stack</h1>
-
-              <StackSection stacks={stacks} />
-          </section>
-
-          <section id="experience" className="w-full scroll-mt-[80px]">
-              <h1>Experience</h1>
-
-              <Box>
-                <div className="flex flex-col gap-[25px]">
-                  <ExperienceCard 
-                  title="UX Designer"
-                  year={ 2026 }
-                  subtitle="Capstone Project: AI System & Agentic in muru-D"
-                  place="RMIT University & Telstra muru-D"
-                  tags={[
-                    "UI/UX",
-                    "AI",
-                  ]}/>
-
-                  <ExperienceCard 
-                  title="RMIT Peer Mentor"
-                  year={ 2025 }
-                  subtitle="Web Programming A, Programming A and Database Concepts A"
-                  place="RMIT University"
-                  tags={[
-                    "Web Developing",
-                    "Database",
-                    "Java",
-                  ]}/>
-
-                  <ExperienceCard 
-                  title="2nd Place Winner"
-                  year={ 2025 }
-                  subtitle="WorldSkills National Competition in Web Design and Development"
-                  place="WorldSkills Australia"
-                  tags={[
-                    "Frontend",
-                    "Backend",
-                    "PHP",
-                    "MySQL",
-                    "API Development",
-                  ]}/>
-
-                  
-                  <ExperienceCard 
-                  title="3rd Place Winner"
-                  year={ 2024 }
-                  subtitle="WorldSkills Regional Competition in Web Design and Development"
-                  place="WorldSkills Australia"
-                  tags={[
-                    "Frontend",
-                    "PHP",
-                    "MySQL",
-                  ]}/>
-                </div>
-              </Box>
-          </section>
-
-          <section id="projects" className="w-full scroll-mt-[80px]">
-              <h1>Projects</h1>
-
-              <Box>
-                <div className="flex flex-col gap-[25px]">
-                  <ProjectCard
-                    screenshot={`${router.basePath}/projects/portfolio.png`}
-                    githubUrl="https://github.com/Marcell-J-Sugianto"
-                    projectUrl="https://marcell-js.com/portfolio"
-                    title="Portfolio Website"
-                    description="A personal portfolio showcasing my experience, technical skills, and selected projects."
-                    tags={["Next.js", "React", "Tailwind CSS"]}
-                  />
-                </div>
-              </Box>
-          </section>
+      <header className={`${styles.headerBar} ${scrolled ? styles.scrolled : ""}`}>
+        <div className={styles.shell + " " + styles.header}>
+          <a href="#welcome">Marcell JS</a>
+          <nav aria-label="Portfolio sections">
+            {sections.map(({ id, title }) => <a key={id} href={`#${id}`}>{title}</a>)}
+          </nav>
         </div>
+      </header>
+
+      <main id="main" tabIndex={-1}>
+        <section id="welcome" aria-labelledby="welcome-title">
+          <div className={styles.hero}>
+            {/* Reserve the full-width scene independently of the heading. */}
+            <div className={styles.scenery} aria-hidden="true" />
+            <div className={styles.shell + " " + styles.heroCopy}>
+              <h1 id="welcome-title">Marcell <em>JS.</em></h1>
+              <p>Web developer in Melbourne</p>
+            </div>
+          </div>
+
+          <div className={styles.shell + " " + styles.shoreNotes}>
+            <p>Give me the beach over the mountains any day. I studied IT at RMIT and plan to pursue a Master’s in AI.</p>
+            <figure>
+              <blockquote>“Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.”</blockquote>
+              <figcaption>Colossians 3:23 (NIV)</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        <section id="stack" className={styles.shell + " " + styles.section} aria-labelledby="stack-title">
+          <h2 id="stack-title">My Stack</h2>
+          <div className={styles.stackGroups}>
+            {stack.map(({ title, tools }) => (
+              <section key={title} className={styles.stackGroup}>
+                <h3>{title}</h3>
+                <ul className={styles.tools}>
+                  {tools.map((tool) => (
+                    <li key={tool}>
+                      <Image src="/vercel.svg" alt="" width={16} height={14} />
+                      <span>{tool}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+        </section>
+
+        <section id="experience" className={styles.band} aria-labelledby="experience-title">
+          <div className={styles.shell + " " + styles.section}>
+            <h2 id="experience-title">Experience</h2>
+            <article className={styles.feature}>
+              <div>
+                <p><time dateTime="2026">2026</time></p>
+                <h3>UX Designer</h3>
+                <p>RMIT × Telstra muru-D</p>
+                <p>Helped design an internal tool that takes an idea from evaluation to an early HTML prototype.</p>
+              </div>
+              <ImagePlaceholder />
+            </article>
+
+            <ul className={styles.timeline} aria-label="Earlier experience">
+              {milestones.map(({ date, title, organisation }) => (
+                <li key={title}>
+                  <p>{date}</p>
+                  <h3>{title}</h3>
+                  <p>{organisation}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section id="projects" className={styles.shell + " " + styles.section} aria-labelledby="projects-title">
+          <div className={styles.project}>
+            <h2 id="projects-title">Projects</h2>
+            <article>
+              <h3>Portfolio Website</h3>
+              <p>My personal site for sharing what I’ve built, the tools I use and the work I’ve been part of.</p>
+              <ImagePlaceholder />
+            </article>
+          </div>
+        </section>
       </main>
-      <Footer />
+
+      <footer className={styles.band}>
+        <div className={styles.shell + " " + styles.footer}>
+          <div>
+            <h2>Drop me a line.</h2>
+            <nav aria-label="Contact">
+              <a href="mailto:marcelloesugianto@gmail.com">Email</a>
+              <a href="https://github.com/Marcell-J-Sugianto">GitHub</a>
+              <a href="https://www.linkedin.com/in/marcell-sugianto-135a9a338/">LinkedIn</a>
+            </nav>
+          </div>
+          <a href="#welcome">Back to top</a>
+        </div>
+      </footer>
     </>
   );
 }
+

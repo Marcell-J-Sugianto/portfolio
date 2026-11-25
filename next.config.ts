@@ -1,9 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  basePath: "/portfolio",
-  reactCompiler: true,
+  reactCompiler: false,
   reactStrictMode: true,
 };
 
