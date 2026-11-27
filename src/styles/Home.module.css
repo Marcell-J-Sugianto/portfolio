@@ -68,27 +68,6 @@
   gap: 1.5rem;
 }
 
-.tools {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-  padding: 0;
-  list-style: none;
-}
-
-.tools li {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  overflow-wrap: anywhere;
-}
-
-.tools img {
-  flex: none;
-  padding: 2px;
-  background: var(--placeholder);
-}
-
 .band {
   background: var(--surface);
 }
@@ -236,11 +215,6 @@
   font: 700 clamp(40px, 7vw, 77px)/0.95 var(--font-heading);
   letter-spacing: -0.055em;
 }
-
-.stackGroup { padding-top: 13px; border-top: 1px solid var(--outline); }
-.stackGroup h3 { color: var(--accent); font: bold 16px/1.25 var(--font-heading); }
-.tools { font-size: 12px; line-height: 1.22; }
-.tools img { background: var(--placeholder); }
 
 .band {
   --accent: var(--coast-glow);
