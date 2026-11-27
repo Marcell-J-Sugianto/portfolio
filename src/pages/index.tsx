@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import StackSection from "@/components/StackSection";
 import styles from "@/styles/Home.module.css";
 
 const sections = [
@@ -85,17 +86,7 @@ export default function Home() {
           <h2 id="stack-title">My Stack</h2>
           <div className={styles.stackGroups}>
             {stack.map(({ title, tools }) => (
-              <section key={title} className={styles.stackGroup}>
-                <h3>{title}</h3>
-                <ul className={styles.tools}>
-                  {tools.map((tool) => (
-                    <li key={tool}>
-                      <Image src="/vercel.svg" alt="" width={16} height={14} />
-                      <span>{tool}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
+              <StackSection key={title} title={title} tools={tools} className={styles.stackGroup} />
             ))}
           </div>
         </section>
