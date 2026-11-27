@@ -1,0 +1,283 @@
+.shell {
+  width: min(100%, 72rem);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+
+.skip {
+  position: fixed;
+  z-index: 11;
+  inset: 0 auto auto 1rem;
+  padding: 0.75rem;
+  background: var(--page);
+  transform: translateY(-120%);
+}
+
+.skip:focus {
+  transform: translateY(0);
+}
+
+.header,
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 2rem;
+  padding-block: 1rem;
+}
+
+.header nav,
+.footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+}
+
+.hero {
+  position: relative;
+  min-height: clamp(19rem, 46vw, 35rem);
+  background: var(--surface);
+}
+
+.scenery {
+  position: absolute;
+  inset: 0;
+}
+
+.heroCopy {
+  position: relative;
+  padding-block: 2rem;
+  text-align: center;
+}
+
+.shoreNotes,
+.section {
+  padding-block: clamp(1.75rem, 5vw, 3rem);
+}
+
+.section > h2,
+.project h2 {
+  margin-block-end: 1.25rem;
+}
+
+.shoreNotes,
+.feature,
+.stackGroups {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.tools {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tools li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-wrap: anywhere;
+}
+
+.tools img {
+  flex: none;
+  padding: 2px;
+  background: var(--placeholder);
+}
+
+.band {
+  background: var(--surface);
+}
+
+.media {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 9;
+  background: var(--placeholder);
+}
+
+.project {
+  max-width: 45rem;
+  margin-inline: auto;
+}
+
+.project p {
+  margin-block: 0.5rem 1rem;
+}
+
+.timeline {
+  display: grid;
+  grid-auto-rows: 1fr;
+  padding: 0 0 0 1.25rem;
+  margin: 1.5rem 0 0;
+  border-inline-start: 1px solid var(--outline);
+  list-style: none;
+}
+
+.timeline li {
+  padding-block: 0.5rem;
+}
+
+/* At tablet widths, the wider content pairs sit side by side. */
+@media (min-width: 48rem) {
+  .shoreNotes,
+  .feature,
+  .stackGroups {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    border-inline-start: 0;
+    border-block-start: 1px solid var(--outline);
+    padding-inline-start: 0;
+  }
+}
+
+/* Low Tide's two wide stack groups sit above three smaller ones on laptops. */
+@media (min-width: 64rem) {
+  .stackGroups {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .stackGroup {
+    grid-column: span 2;
+  }
+
+  .stackGroup:nth-child(-n + 2) {
+    grid-column: span 3;
+  }
+}
+
+/* Colours and typography from the original Low Tide mockup. */
+.headerBar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--header);
+  transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.headerBar.scrolled {
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 16%),
+    inset 0 -1px rgb(255 255 255 / 25%);
+}
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .headerBar.scrolled {
+    background: transparent;
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+  }
+}
+
+.header {
+  min-height: 65px;
+  align-items: center;
+}
+
+.headerBar ~ main > section { scroll-margin-top: 9rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .headerBar { transition: none; }
+}
+
+.header > a {
+  font: bold italic 24px/1 var(--font-heading);
+  letter-spacing: -0.04em;
+  text-decoration: none;
+}
+
+.header nav,
+.footer nav {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.hero { background: var(--hero); }
+
+.heroCopy h1 {
+  font: 700 clamp(54px, 12vw, 137px)/0.96 var(--font-heading);
+  letter-spacing: -0.068em;
+}
+
+.heroCopy em {
+  padding-right: 0.07em;
+  color: var(--accent);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+}
+
+.heroCopy > p {
+  margin-top: 9px;
+  font-size: clamp(15px, 2.1vw, 20px);
+  font-weight: 600;
+}
+
+.shoreNotes > p { font-size: 18px; }
+
+.shoreNotes figure {
+  padding-left: 14px;
+  border-left: 2px solid var(--outline);
+  color: var(--quote);
+}
+
+.shoreNotes blockquote { font: italic 18px/1.35 var(--font-heading); }
+.shoreNotes figcaption { margin-top: 7px; font-size: 13px; font-weight: 600; }
+
+.section > h2,
+.project h2 {
+  font: 700 clamp(40px, 7vw, 77px)/0.95 var(--font-heading);
+  letter-spacing: -0.055em;
+}
+
+.stackGroup { padding-top: 13px; border-top: 1px solid var(--outline); }
+.stackGroup h3 { color: var(--accent); font: bold 16px/1.25 var(--font-heading); }
+.tools { font-size: 12px; line-height: 1.22; }
+.tools img { background: var(--placeholder); }
+
+.band {
+  --accent: var(--coast-glow);
+  --outline: #a17c9c;
+  background: var(--dusk);
+  color: var(--coast-sand);
+}
+
+.feature h3,
+.project h3 {
+  font: bold clamp(23px, 4vw, 36px)/1.03 var(--font-heading);
+  letter-spacing: -0.06em;
+}
+
+.feature p + p { margin-top: 6px; }
+.feature p:first-child,
+.feature h3 + p,
+.timeline li > p:first-child {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.timeline h3 {
+  font: bold clamp(22px, 2.8vw, 32px)/1.03 var(--font-heading);
+  letter-spacing: -0.06em;
+  margin-block: 7px;
+}
+
+.timeline li > p:last-child { font-size: 14px; }
+.media { border: 1px solid #a17c9c; }
+
+footer.band { background: var(--ocean); }
+.footer h2 {
+  margin-bottom: 15px;
+  font: 700 clamp(35px, 5vw, 41px)/0.95 var(--font-heading);
+  letter-spacing: -0.055em;
+}
+
+.skip { background: var(--ocean); color: var(--coast-sand); }
