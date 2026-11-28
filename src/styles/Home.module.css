@@ -135,6 +135,10 @@
 
 /* Colours and typography from the original Low Tide mockup. */
 .headerBar {
+  --nav-blur: 20px;
+  --nav-fade-inner: calc(var(--nav-blur) * 0.7);
+  --nav-fade-outer: calc(var(--nav-blur) * 1.4);
+  --nav-fade-edge: calc(var(--nav-blur) * 2.4);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -142,17 +146,66 @@
   transition: background 180ms ease, box-shadow 180ms ease;
 }
 
-.headerBar.scrolled {
+.headerBar[data-scrolled] {
   background: var(--surface);
   box-shadow: 0 8px 24px rgb(0 0 0 / 16%),
     inset 0 -1px rgb(255 255 255 / 25%);
 }
 
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .headerBar.scrolled {
+.sandText {
+  display: none;
+}
+
+@supports (mask-image: linear-gradient(black, transparent)) and
+  ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .headerBar[data-scrolled] {
     background: transparent;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(var(--nav-blur));
+    backdrop-filter: blur(var(--nav-blur));
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] .headerLink {
+    position: relative;
+    text-decoration: none;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink:hover > span {
+    text-decoration-thickness: 2px;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] .sandText {
+    display: block;
+    position: absolute;
+    inset: 0;
+    color: var(--coast-sand);
+    pointer-events: none;
+    mask-image: var(--nav-band-mask, linear-gradient(transparent, transparent));
+    mask-size: 100% var(--nav-mask-height, 0px);
+    mask-position: 0 var(--nav-mask-offset, 0px);
+    mask-repeat: no-repeat;
+  }
+
+  .headerBar[data-scrolled] .headerLink:focus-visible {
+    outline: 2px solid var(--coast-sand);
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px var(--coast-ink);
+  }
+}
+
+@media (forced-colors: active) {
+  .headerBar[data-scrolled] {
+    background: Canvas;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] .sandText {
+    display: none;
   }
 }
 

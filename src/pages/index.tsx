@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import StackSection from "@/components/StackSection";
 import styles from "@/styles/Home.module.css";
@@ -34,14 +34,87 @@ function ImagePlaceholder() {
   );
 }
 
+function HeaderLink({ href, label }: { href: string; label: string }) {
+  return (
+    <a className={styles.headerLink} href={href}>
+      <span>{label}</span>
+      <span className={styles.sandText} aria-hidden="true">{label}</span>
+    </a>
+  );
+}
+
+function darkBandMask(top: number, bottom: number) {
+  return `linear-gradient(
+    to bottom,
+    transparent calc(${top}px - var(--nav-fade-edge)),
+    rgb(0 0 0 / 8%) calc(${top}px - var(--nav-fade-outer)),
+    rgb(0 0 0 / 25%) calc(${top}px - var(--nav-fade-inner)),
+    rgb(0 0 0 / 50%) ${top}px,
+    rgb(0 0 0 / 75%) calc(${top}px + var(--nav-fade-inner)),
+    rgb(0 0 0 / 92%) calc(${top}px + var(--nav-fade-outer)),
+    black calc(${top}px + var(--nav-fade-edge)) calc(${bottom}px - var(--nav-fade-edge)),
+    rgb(0 0 0 / 92%) calc(${bottom}px - var(--nav-fade-outer)),
+    rgb(0 0 0 / 75%) calc(${bottom}px - var(--nav-fade-inner)),
+    rgb(0 0 0 / 50%) ${bottom}px,
+    rgb(0 0 0 / 25%) calc(${bottom}px + var(--nav-fade-inner)),
+    rgb(0 0 0 / 8%) calc(${bottom}px + var(--nav-fade-outer)),
+    transparent calc(${bottom}px + var(--nav-fade-edge))
+  )`;
+}
+
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
+  const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const updateScroll = () => setScrolled(window.scrollY > 0);
-    updateScroll();
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    return () => window.removeEventListener("scroll", updateScroll);
+    const header = headerRef.current;
+    if (!header) return;
+
+    const links = header.querySelectorAll("a");
+    const darkBands = document.querySelectorAll("[data-nav-dark]");
+    let frame = 0;
+
+    function updateHeader() {
+      frame = 0;
+      if (!header) return;
+
+      const scrolled = window.scrollY > 0;
+      header.toggleAttribute("data-scrolled", scrolled);
+      if (!scrolled) return;
+
+      const { top, height } = header.getBoundingClientRect();
+      const masks = Array.from(darkBands, (band) => {
+        const bounds = band.getBoundingClientRect();
+        return darkBandMask(bounds.top - top, bounds.bottom - top);
+      });
+      const offsets = Array.from(links, (link) => top - link.getBoundingClientRect().top);
+
+      // Each link samples the same blurred section boundaries, even when the nav wraps.
+      header.style.setProperty("--nav-band-mask", masks.join(", "));
+      header.style.setProperty("--nav-mask-height", `${height}px`);
+      links.forEach((link, index) => {
+        link.style.setProperty("--nav-mask-offset", `${offsets[index]}px`);
+      });
+    }
+
+    function scheduleUpdate() {
+      if (!frame) frame = window.requestAnimationFrame(updateHeader);
+    }
+
+    const observer = new ResizeObserver(scheduleUpdate);
+    observer.observe(header);
+    if (mainRef.current) observer.observe(mainRef.current);
+    darkBands.forEach((band) => observer.observe(band));
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+    updateHeader();
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
+    };
   }, []);
 
   return (
@@ -53,16 +126,18 @@ export default function Home() {
 
       <a className={styles.skip} href="#main">Skip to content</a>
 
-      <header className={`${styles.headerBar} ${scrolled ? styles.scrolled : ""}`}>
+      <header ref={headerRef} className={styles.headerBar}>
         <div className={styles.shell + " " + styles.header}>
-          <a href="#welcome">Marcell JS</a>
+          <HeaderLink href="#welcome" label="Marcell JS" />
           <nav aria-label="Portfolio sections">
-            {sections.map(({ id, title }) => <a key={id} href={`#${id}`}>{title}</a>)}
+            {sections.map(({ id, title }) => (
+              <HeaderLink key={id} href={`#${id}`} label={title} />
+            ))}
           </nav>
         </div>
       </header>
 
-      <main id="main" tabIndex={-1}>
+      <main ref={mainRef} id="main" tabIndex={-1}>
         <section id="welcome" aria-labelledby="welcome-title">
           <div className={styles.hero}>
             {/* Reserve the full-width scene independently of the heading. */}
@@ -91,7 +166,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="experience" className={styles.band} aria-labelledby="experience-title">
+        <section id="experience" className={styles.band} aria-labelledby="experience-title" data-nav-dark>
           <div className={styles.shell + " " + styles.section}>
             <h2 id="experience-title">Experience</h2>
             <article className={styles.feature}>
@@ -128,7 +203,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className={styles.band}>
+      <footer className={styles.band} data-nav-dark>
         <div className={styles.shell + " " + styles.footer}>
           <div>
             <h2>Drop me a line.</h2>
