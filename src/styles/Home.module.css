@@ -161,6 +161,79 @@
   display: none;
 }
 
+.header nav .headerLink {
+  text-decoration: none;
+}
+
+.header nav .headerLink > span {
+  position: relative;
+  text-decoration: none;
+}
+
+.header nav .headerLink > span:first-child {
+  display: block;
+}
+
+.navLabel,
+.sandText {
+  white-space: nowrap;
+}
+
+/* Reveal the bold copy over the original label, which stays visible. */
+.navBoldReveal {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(-2px 100% -2px 0);
+  pointer-events: none;
+}
+
+.header nav .headerLink:hover .navBoldReveal {
+  clip-path: inset(-2px 0% -2px 0);
+}
+
+.navBold {
+  display: block;
+  width: max-content;
+  font-weight: 700;
+  transform: scaleX(var(--nav-bold-scale, 1));
+  transform-origin: left;
+}
+
+.header nav .headerLink > span::before,
+.header nav .headerLink > span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2em;
+  background: currentColor;
+  pointer-events: none;
+}
+
+.header nav .headerLink > span::before {
+  height: 1px;
+}
+
+.header nav .headerLink > span::after {
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.header nav .headerLink:hover > span::after {
+  transform: scaleX(1);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header nav .headerLink:hover .navBoldReveal {
+    transition: clip-path 180ms linear;
+  }
+
+  .header nav .headerLink:hover > span::after {
+    transition: transform 180ms linear;
+  }
+}
+
 @supports (mask-image: linear-gradient(black, transparent)) and
   ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .headerBar[data-scrolled] {
@@ -174,15 +247,6 @@
     text-decoration: none;
   }
 
-  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span {
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-
-  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink:hover > span {
-    text-decoration-thickness: 2px;
-  }
-
   :global([data-theme="light"]) .headerBar[data-scrolled] .sandText {
     display: block;
     position: absolute;
@@ -193,6 +257,33 @@
     mask-size: 100% var(--nav-mask-height, 0px);
     mask-position: 0 var(--nav-mask-offset, 0px);
     mask-repeat: no-repeat;
+  }
+
+  /* Fade the plum layer out as the sand layer fades in. */
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span:first-child {
+    padding-bottom: 0.4em;
+    margin-bottom: -0.4em;
+    mask-image: linear-gradient(black, black), var(--nav-band-mask, linear-gradient(transparent, transparent));
+    mask-size: 100% var(--nav-mask-height, 0px);
+    mask-position: 0 var(--nav-mask-offset, 0px);
+    mask-repeat: no-repeat;
+    mask-composite: exclude;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span:first-child::before,
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span:first-child::after {
+    bottom: 0.2em;
+  }
+
+  /* Include the underline in the masked area below the text. */
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .sandText {
+    bottom: -0.4em;
+    padding-bottom: 0.4em;
+  }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .sandText::before,
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .sandText::after {
+    bottom: 0.2em;
   }
 
   .headerBar[data-scrolled] .headerLink:focus-visible {
@@ -212,6 +303,10 @@
   :global([data-theme="light"]) .headerBar[data-scrolled] .sandText {
     display: none;
   }
+
+  :global([data-theme="light"]) .headerBar[data-scrolled] nav .headerLink > span:first-child {
+    mask-image: none;
+  }
 }
 
 .header {
@@ -229,6 +324,17 @@
   font: bold italic 24px/1 var(--font-heading);
   letter-spacing: -0.04em;
   text-decoration: none;
+  transform-origin: center;
+}
+
+.header > a:hover {
+  transform: scale(1.04);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .header > a {
+    transition: transform 180ms ease;
+  }
 }
 
 .header nav,

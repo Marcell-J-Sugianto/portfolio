@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 
 import ExperienceEntry from "@/components/ExperienceEntry";
+import NavLink from "@/components/NavLink";
 import StackSection from "@/components/StackSection";
 import styles from "@/styles/Home.module.css";
 
@@ -151,7 +152,7 @@ export default function Home() {
           <HeaderLink href="#welcome" label="Marcell JS" />
           <nav aria-label="Portfolio sections">
             {sections.map(({ id, title }) => (
-              <HeaderLink key={id} href={`#${id}`} label={title} />
+              <NavLink key={id} href={`#${id}`} label={title} />
             ))}
           </nav>
         </div>
