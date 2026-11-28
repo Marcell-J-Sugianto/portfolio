@@ -62,7 +62,6 @@
 }
 
 .shoreNotes,
-.feature,
 .stackGroups {
   display: grid;
   gap: 1.5rem;
@@ -90,31 +89,37 @@
 
 .timeline {
   display: grid;
-  grid-auto-rows: 1fr;
-  padding: 0 0 0 1.25rem;
-  margin: 1.5rem 0 0;
-  border-inline-start: 1px solid var(--outline);
+  gap: 0 1.5rem;
+  padding: 0;
+  margin: 0;
   list-style: none;
 }
 
-.timeline li {
-  padding-block: 0.5rem;
+.timeline > li {
+  padding-block: 1.5rem 0.5rem;
+}
+
+.section > .timeline {
+  margin-top: 1.5rem;
 }
 
 /* At tablet widths, the wider content pairs sit side by side. */
 @media (min-width: 48rem) {
   .shoreNotes,
-  .feature,
   .stackGroups {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .timeline {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-    border-inline-start: 0;
-    border-block-start: 1px solid var(--outline);
-    padding-inline-start: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .timeline > li {
+    grid-column: 1 / -1;
+  }
+
+  .timeline > .timelineHalf {
+    grid-column: span 1;
   }
 }
 
@@ -276,28 +281,11 @@
   color: var(--coast-sand);
 }
 
-.feature h3,
 .project h3 {
   font: bold clamp(23px, 4vw, 36px)/1.03 var(--font-heading);
   letter-spacing: -0.06em;
 }
 
-.feature p + p { margin-top: 6px; }
-.feature p:first-child,
-.feature h3 + p,
-.timeline li > p:first-child {
-  color: var(--accent);
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.timeline h3 {
-  font: bold clamp(22px, 2.8vw, 32px)/1.03 var(--font-heading);
-  letter-spacing: -0.06em;
-  margin-block: 7px;
-}
-
-.timeline li > p:last-child { font-size: 14px; }
 .media { border: 1px solid #a17c9c; }
 
 footer.band { background: var(--ocean); }

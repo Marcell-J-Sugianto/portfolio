@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
+import ExperienceEntry from "@/components/ExperienceEntry";
 import StackSection from "@/components/StackSection";
 import styles from "@/styles/Home.module.css";
 
@@ -21,9 +22,28 @@ const stack = [
 ];
 
 const milestones = [
-  { date: "Since 2025", title: "RMIT Peer Mentor", organisation: "RMIT University" },
-  { date: "2025", title: "2nd place nationally", organisation: "WorldSkills Australia" },
-  { date: "2024", title: "3rd place regionally", organisation: "WorldSkills Australia" },
+  {
+    date: "Since 2025",
+    title: "RMIT Peer Mentor",
+    organisation: "RMIT University",
+    description: "Helping students with Web Programming A, Programming A and Database Concepts A.",
+  },
+  {
+    date: "2025",
+    title: "2nd place nationally",
+    organisation: "WorldSkills Australia",
+    description: "National Web Design & Development Competition, representing Team Victoria.",
+    image: { src: "/vercel.svg", alt: "" },
+    paired: true,
+  },
+  {
+    date: "2024",
+    title: "3rd place regionally",
+    organisation: "WorldSkills Australia",
+    description: "Regional Web Design & Development Competition.",
+    image: { src: "/vercel.svg", alt: "" },
+    paired: true,
+  },
 ];
 
 function ImagePlaceholder() {
@@ -169,22 +189,17 @@ export default function Home() {
         <section id="experience" className={styles.band} aria-labelledby="experience-title" data-nav-dark>
           <div className={styles.shell + " " + styles.section}>
             <h2 id="experience-title">Experience</h2>
-            <article className={styles.feature}>
-              <div>
-                <p><time dateTime="2026">2026</time></p>
-                <h3>UX Designer</h3>
-                <p>RMIT × Telstra muru-D</p>
-                <p>Helped design an internal tool that takes an idea from evaluation to an early HTML prototype.</p>
-              </div>
-              <ImagePlaceholder />
-            </article>
+            <ExperienceEntry
+              date="2026"
+              title="UX Designer"
+              organisation="RMIT × Telstra muru-D"
+              description="Helped design an internal tool that takes an idea from evaluation to an early HTML prototype."
+            />
 
             <ul className={styles.timeline} aria-label="Earlier experience">
-              {milestones.map(({ date, title, organisation }) => (
-                <li key={title}>
-                  <p>{date}</p>
-                  <h3>{title}</h3>
-                  <p>{organisation}</p>
+              {milestones.map(({ date, title, organisation, description, image, paired }) => (
+                <li key={title} className={paired ? styles.timelineHalf : undefined}>
+                  <ExperienceEntry date={date} title={title} organisation={organisation} description={description} image={image} />
                 </li>
               ))}
             </ul>
